@@ -6,10 +6,19 @@
     <description>Recent content on 犀牛人家 - 感觉自己性格跟犀牛很像笨重而又却将倔强</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Tue, 11 Feb 2020 14:34:15 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 11 Feb 2020 16:18:55 +0800</lastBuildDate>
     
 	<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>处理go1.13下etcd</title>
+      <link>http://localhost:1313/post/%E5%A4%84%E7%90%86go1.13%E4%B8%8Betcd.v3%E9%94%99%E8%AF%AF%E9%97%AE%E9%A2%98/</link>
+      <pubDate>Tue, 11 Feb 2020 16:18:55 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/%E5%A4%84%E7%90%86go1.13%E4%B8%8Betcd.v3%E9%94%99%E8%AF%AF%E9%97%AE%E9%A2%98/</guid>
+      <description>&lt;p&gt;处理etcd.v3在go 1.13错误问题&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Bluebird</title>
