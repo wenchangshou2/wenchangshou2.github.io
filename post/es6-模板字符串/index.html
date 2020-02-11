@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Es6 模板字符串 - 犀牛人家 - 感觉自己性格跟犀牛很像笨重而又却将倔强</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="changshou.wen" /><meta name="description" content="es6 新的特殊支持嵌入表达式，自动会处于``内所有的字符串。
+" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.64.1 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/es6-%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.61bcc626.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Es6 模板字符串" />
+<meta property="og:description" content="es6 新的特殊支持嵌入表达式，自动会处于``内所有的字符串。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/es6-%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/" />
+<meta property="article:published_time" content="2020-02-11T14:11:28+08:00" />
+<meta property="article:modified_time" content="2020-02-11T14:11:28+08:00" />
+<meta itemprop="name" content="Es6 模板字符串">
+<meta itemprop="description" content="es6 新的特殊支持嵌入表达式，自动会处于``内所有的字符串。">
+<meta itemprop="datePublished" content="2020-02-11T14:11:28&#43;08:00" />
+<meta itemprop="dateModified" content="2020-02-11T14:11:28&#43;08:00" />
+<meta itemprop="wordCount" content="491">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Es6 模板字符串"/>
+<meta name="twitter:description" content="es6 新的特殊支持嵌入表达式，自动会处于``内所有的字符串。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">犀牛之家</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">犀牛之家</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Es6 模板字符串</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-02-11 </span>
+        
+          <span class="more-meta"> 约 491 字 </span>
+          <span class="more-meta"> 预计阅读 1 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#多行字符串">多行字符串</a></li>
+        <li><a href="#表达式插入">表达式插入</a></li>
+        <li><a href="#带标签的模板字符串">带标签的模板字符串</a></li>
+        <li><a href="#不转义字符串">不转义字符串</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>es6 新的特殊支持嵌入表达式，自动会处于``内所有的字符串。</p>
+<h3 id="多行字符串">多行字符串</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="err">\</span><span class="err">\</span><span class="nx">传统的多行字符串</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;string line1 \n\
+</span><span class="s1">string line2&#39;</span><span class="p">)</span>
+<span class="err">\</span><span class="err">\</span><span class="nx">es6多行字符串</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="sb">string line
+</span><span class="sb">string lin2</span><span class="sb">`</span><span class="p">)</span><span class="p">;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="表达式插入">表达式插入</h3>
+<p>传统的方式采用的是字符串拼接的方式进行，通过+号进行拼接</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// 传统方式
+</span><span class="c1"></span> <span class="kd">let</span> <span class="nx">x</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+ <span class="kd">let</span> <span class="nx">y</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
+ <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;x=&#39;</span><span class="o">+</span><span class="p">(</span><span class="nx">a</span><span class="o">+</span><span class="nx">b</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;;y=&#39;</span><span class="o">+</span><span class="p">(</span><span class="nx">a</span><span class="o">*</span><span class="nx">b</span><span class="p">)</span><span class="p">)</span>
+ <span class="c1">//es6 语法
+</span><span class="c1"></span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;x=&#39;</span><span class="o">+</span><span class="p">(</span><span class="nx">a</span><span class="o">+</span><span class="nx">b</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;;y=&#39;</span><span class="o">+</span><span class="p">(</span><span class="nx">a</span><span class="o">*</span><span class="nx">b</span><span class="p">)</span><span class="p">)</span><span class="p">;</span>
+ <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="sb">x=</span><span class="si">${</span><span class="nx">x</span><span class="o">+</span><span class="nx">y</span><span class="si">}</span><span class="sb">,y=</span><span class="si">${</span><span class="nx">x</span><span class="o">*</span><span class="nx">y</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="带标签的模板字符串">带标签的模板字符串</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">//strings 存放所有的字符串字面的数组
+</span><span class="c1"></span><span class="c1">//values 存放第一个数组紧随的参数
+</span><span class="c1"></span> <span class="kd">function</span> <span class="nx">tag3</span><span class="p">(</span><span class="nx">strings</span><span class="p">,</span><span class="p">...</span><span class="nx">values</span><span class="p">)</span><span class="p">{</span>
+ 					  <span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+					  <span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">strings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span><span class="p">;</span><span class="c1">//hello
+</span><span class="c1"></span>                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">strings</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span><span class="p">;</span><span class="c1">//world
+</span><span class="c1"></span>                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">strings</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="p">)</span><span class="p">;</span><span class="c1">//
+</span><span class="c1"></span>                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span><span class="p">;</span><span class="c1">//15
+</span><span class="c1"></span>                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span><span class="p">;</span><span class="c1">//50
+</span><span class="c1"></span>                <span class="k">return</span> <span class="s2">&#34;hello world&#34;</span>
+ <span class="p">}</span>
+  <span class="nx">tag3</span> <span class="sb">`</span><span class="sb">Hello </span><span class="si">${</span><span class="nx">a</span><span class="o">+</span><span class="nx">b</span><span class="si">}</span><span class="sb"> world </span><span class="si">${</span> <span class="nx">a</span><span class="o">*</span><span class="nx">b</span> <span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+  <span class="c1">//out:hello world
+</span></code></pre></td></tr></table>
+</div>
+</div><p>通过传入的参数来返回一个函数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">template</span><span class="p">(</span><span class="nx">strings</span><span class="p">,</span><span class="p">...</span><span class="nx">keys</span><span class="p">)</span><span class="p">{</span>
+<span class="k">return</span> <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="p">...</span><span class="nx">values</span><span class="p">)</span><span class="p">{</span>
+		<span class="kd">var</span> <span class="nx">dict</span><span class="o">=</span><span class="nx">values</span><span class="p">[</span><span class="nx">values</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">||</span><span class="p">{</span><span class="p">}</span><span class="p">;</span>  <span class="c1">//A                 
+</span><span class="c1"></span>		<span class="kd">var</span> <span class="nx">result</span><span class="o">=</span><span class="p">[</span><span class="nx">strings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">]</span><span class="p">;</span>
+		<span class="nx">keys</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span><span class="nx">i</span><span class="p">)</span><span class="p">{</span>
+		<span class="kd">var</span> <span class="nx">value</span><span class="o">=</span><span class="nb">Number</span><span class="p">.</span><span class="nx">isInteger</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span><span class="o">?</span><span class="nx">values</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span><span class="o">:</span><span class="nx">dict</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span><span class="p">;</span>              <span class="nx">result</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span><span class="nx">strings</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span><span class="p">;</span>
+<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+<span class="k">return</span> <span class="nx">result</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="p">;</span>
+<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">t1Closure</span><span class="o">=</span><span class="nx">template</span> <span class="sb">`</span><span class="si">${</span><span class="mi">0</span><span class="si">}</span><span class="si">${</span><span class="mi">1</span><span class="si">}</span><span class="si">${</span><span class="mi">0</span><span class="si">}</span><span class="sb">!</span><span class="sb">`</span><span class="p">;</span><span class="c1">//返回的是一个函数
+</span><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">t1Closure</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">)</span><span class="p">)</span><span class="p">;</span><span class="c1">//Y A Y
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="不转义字符串">不转义字符串</h3>
+<p>在String.raw()输出不转义的字符串,输出原始的字符串</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">tag</span><span class="p">(</span><span class="nx">strings</span><span class="p">,</span> <span class="p">...</span><span class="nx">values</span><span class="p">)</span> <span class="p">{</span>
+<span class="cm">/*
+</span><span class="cm">	倘若不采用raw输出的会直接进行换行 
+</span><span class="cm">*/</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nx">raw</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span><span class="p">;</span> 
+  <span class="c1">// &#34;string text line 1 \n string text line 2&#34;
+</span><span class="c1"></span><span class="p">}</span>
+
+<span class="nx">tag</span><span class="sb">`</span><span class="sb">string text line 1 </span><span class="err">\</span><span class="sb">n string text line 2</span><span class="sb">`</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="实例">实例</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">//判断是否具有权限，倘若没有抛出一个异常
+</span><span class="c1"></span><span class="c1">//${user.name}和${action}是两个点占位号，会自动将值带入到该字符串
+</span><span class="c1"></span><span class="kd">function</span> <span class="nx">authorize</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">user</span><span class="p">.</span><span class="nx">hasPrivilege</span><span class="p">(</span><span class="nx">action</span><span class="p">)</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span>
+      <span class="sb">`</span><span class="sb">用户 </span><span class="si">${</span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb"> 未被授权执行 </span><span class="si">${</span><span class="nx">action</span><span class="si">}</span><span class="sb"> 操作。</span><span class="sb">`</span><span class="p">)</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">changshou.wen</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-02-11
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/python-%E7%88%AC%E8%99%AB-%E4%B8%8B%E8%BD%BD%E8%B1%86%E7%93%A3%E6%AD%8C%E5%8D%95/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Python 爬虫 下载豆瓣歌单</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/meteor-%E5%8A%A0%E8%BD%BD%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6/">
+            <span class="next-text nav-default">meteor-加载静态文件</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenchangshou@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://github.com/wenchangshou2" class="iconfont icon-github" title="github"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">changshou.wen</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.de161082.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

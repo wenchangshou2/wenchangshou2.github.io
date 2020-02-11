@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>meteor-加载静态文件 - 犀牛人家 - 感觉自己性格跟犀牛很像笨重而又却将倔强</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="changshou.wen" /><meta name="description" content="meteor 加载静态文件
+" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.64.1 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/meteor-%E5%8A%A0%E8%BD%BD%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.61bcc626.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="meteor-加载静态文件" />
+<meta property="og:description" content="meteor 加载静态文件" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/meteor-%E5%8A%A0%E8%BD%BD%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6/" />
+<meta property="article:published_time" content="2020-02-11T14:07:25+08:00" />
+<meta property="article:modified_time" content="2020-02-11T14:07:25+08:00" />
+<meta itemprop="name" content="meteor-加载静态文件">
+<meta itemprop="description" content="meteor 加载静态文件">
+<meta itemprop="datePublished" content="2020-02-11T14:07:25&#43;08:00" />
+<meta itemprop="dateModified" content="2020-02-11T14:07:25&#43;08:00" />
+<meta itemprop="wordCount" content="1810">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="meteor-加载静态文件"/>
+<meta name="twitter:description" content="meteor 加载静态文件"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">犀牛之家</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">犀牛之家</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">meteor-加载静态文件</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-02-11 </span>
+        
+          <span class="more-meta"> 约 1810 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>meteor 加载静态文件</p>
+<p>meteor 加载外部资源文件</p>
+<p>在很多时候开发的时候我们需要导入一些外部的数据到程序当中，这些数据可能存放在csv,XML.json之类的文件当中，我们就将其导入到程序当中，使其能够供全局进行访问。</p>
+<p>private/json/city.json</p>
+<pre><code> [
+  {&quot;code&quot;:&quot;010&quot;,&quot;city&quot;:&quot;北京&quot;, &quot;pinyin&quot;: &quot;beijing&quot;},
+  {&quot;code&quot;:&quot;021&quot;,&quot;city&quot;:&quot;上海&quot;, &quot;pinyin&quot;:&quot;shanghai&quot;},
+  {&quot;code&quot;:&quot;0571&quot;,&quot;city&quot;:&quot;杭州&quot;, &quot;pinyin&quot;:&quot;hangzhou&quot;,&quot;province&quot;: &quot;浙江&quot;},
+  {&quot;code&quot;:&quot;0574&quot;,&quot;city&quot;:&quot;宁波&quot;, &quot;pinyin&quot;:&quot;ningbo&quot;,&quot;province&quot;: &quot;浙江&quot;},
+  {&quot;code&quot;:&quot;0573&quot;,&quot;city&quot;:&quot;嘉兴&quot;, &quot;pinyin&quot;:&quot;jiaxing&quot;,&quot;province&quot;: &quot;浙江&quot;},
+  {&quot;code&quot;:&quot;0575&quot;,&quot;city&quot;:&quot;绍兴&quot;, &quot;pinyin&quot;:&quot;shaoxing&quot;,&quot;province&quot;: &quot;浙江&quot;},
+  {&quot;code&quot;:&quot;0577&quot;,&quot;city&quot;:&quot;温州&quot;, &quot;pinyin&quot;:&quot;wenzhou&quot;,&quot;province&quot;: &quot;浙江&quot;},
+  {&quot;code&quot;:&quot;0580&quot;,&quot;city&quot;:&quot;舟山&quot;, &quot;pinyin&quot;:&quot;zhoushan&quot;,&quot;province&quot;: &quot;浙江&quot;},
+  {&quot;code&quot;:&quot;0572&quot;,&quot;city&quot;:&quot;湖州&quot;, &quot;pinyin&quot;:&quot;huzhou&quot;,&quot;province&quot;: &quot;浙江&quot;},
+  {&quot;code&quot;:&quot;0579&quot;,&quot;city&quot;:&quot;金华&quot;, &quot;pinyin&quot;:&quot;jinhua&quot;,&quot;province&quot;: &quot;浙江&quot;},
+  {&quot;code&quot;:&quot;0578&quot;,&quot;city&quot;:&quot;丽水&quot;, &quot;pinyin&quot;:&quot;lishui&quot;,&quot;province&quot;: &quot;浙江&quot;},
+  {&quot;code&quot;:&quot;0576&quot;,&quot;city&quot;:&quot;台州&quot;, &quot;pinyin&quot;:&quot;taizhou&quot;,&quot;province&quot;: &quot;浙江&quot;},
+  {&quot;code&quot;:&quot;0570&quot;,&quot;city&quot;:&quot;衢州&quot;, &quot;pinyin&quot;:&quot;quzhou&quot;,&quot;province&quot;: &quot;浙江&quot;},
+  ]
+</code></pre>
+<p>特殊注意是private文件夹的数据是不提供给客户端</p>
+<p>上面的是包含城市名称以及区号的json数据，我们将其保存在文件当中，这里我们可以通过Assets API来访问以及处理相应的数据。</p>
+<p>server/main.js</p>
+<pre><code>import { Meteor } from 'meteor/meteor';
+
+Meteor.startup(function(){
+  var cityList=JSON.parse(Assets.getText('json/city.json'))
+  _.each(cityList, function(city) {
+    console.log(city);
+  });
+})
+</code></pre>
+<p>上面的代码会将所有的数据进行输出，但是有的时候这些数据可以会被其他的项目需要，这里我们需要通过添加一个package来解决，同时我们只可以将这个包上传到atmospherejs</p>
+<p>我们需要将之前的json文件移到cityjson包，最终的目录文件如下所示</p>
+<pre><code>└── cityjson
+    ├── README.md
+    ├── city.json
+    ├── cityjson-tests.js
+    ├── cityjson.js
+    └── package.js
+</code></pre>
+<p>package.js</p>
+<pre><code>Package.describe({
+  name: 'wenchangshou:cityjson',
+  version: '0.0.1',
+  // Brief, one-line summary of the package.
+  summary: '获取国内的所有的城市名称以及区号',
+  // URL to the Git repository containing the source code for this package.
+  git: '',
+  // By default, Meteor will default to using README.md for documentation.
+  // To avoid submitting documentation, set this field to null.
+  documentation: 'README.md'
+});
+
+Package.onUse(function (api) {
+  //  api.versionsFrom('1.4.2.7');
+  api.versionsFrom('1.0')
+  api.export('cityList', 'server');
+  api.addAssets('city.json', 'server')
+  api.addFiles('cityjson.js', 'server')
+});
+
+
+Package.onTest(function(api) {
+  api.use('ecmascript');
+  api.use('tinytest');
+  api.use('wenchangshou:cityjson');
+  api.mainModule('cityjson-tests.js');
+});
+</code></pre>
+<p>cityjson.js</p>
+<pre><code>var cityCollection=JSON.parse(Assets.getText('city.json'));
+cityList={city:cityCollection}
+</code></pre>
+<ul>
+<li>Assets.getText 可以从当前的包内进行调用 ，通过addFiles进行数据的暴露</li>
+<li>之后我们需要读取以及解析数据，city里面包含了所有的城市信息，并且我们通过cityList这个全局变量进行数据的暴露</li>
+<li>我们通过 api.addAssets将静态的文件导入到包中，通过Assets.getText进行访问</li>
+</ul>
+<p>meteor 包上传</p>
+<p>上面的操作我们已经创建了一个能够使用的包了，这时候我们需要将这个包上传，方便将来的使用</p>
+<p>meteor publish &ndash;create</p>
+<p>上传成功之后我们可以直接访问cityjson来查看我们上传的包，如下图所示</p>
+<p>上传成功之后我们将pckages/cityjson目录删除</p>
+<p>rm -rf packages/cityjson</p>
+<p>我们在主目录当中添加我们上传的包,其中wenchangshou是我的用户名</p>
+<p>meteor add wenchangshou:cityjson</p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">changshou.wen</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-02-11
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      
+      <nav class="post-nav">
+        <a class="prev" href="/post/es6-%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Es6 模板字符串</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/typescript-%E5%AE%9E%E7%8E%B0%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/">
+            <span class="next-text nav-default">Typescript 实现状态模式</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenchangshou@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://github.com/wenchangshou2" class="iconfont icon-github" title="github"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">changshou.wen</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.de161082.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

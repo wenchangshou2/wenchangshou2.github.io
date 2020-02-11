@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Bluebird - 犀牛人家 - 感觉自己性格跟犀牛很像笨重而又却将倔强</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="changshou.wen" /><meta name="description" content="bluebird 笔记 将传统方法封闭成promise方式 Promise.promisify能够将原有的函数封装成promise的调用方式。 下面的是传统的异步" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.64.1 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/bluebird/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.61bcc626.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Bluebird" />
+<meta property="og:description" content="bluebird 笔记 将传统方法封闭成promise方式 Promise.promisify能够将原有的函数封装成promise的调用方式。 下面的是传统的异步" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/bluebird/" />
+<meta property="article:published_time" content="2020-02-11T14:34:15+08:00" />
+<meta property="article:modified_time" content="2020-02-11T14:34:15+08:00" />
+<meta itemprop="name" content="Bluebird">
+<meta itemprop="description" content="bluebird 笔记 将传统方法封闭成promise方式 Promise.promisify能够将原有的函数封装成promise的调用方式。 下面的是传统的异步">
+<meta itemprop="datePublished" content="2020-02-11T14:34:15&#43;08:00" />
+<meta itemprop="dateModified" content="2020-02-11T14:34:15&#43;08:00" />
+<meta itemprop="wordCount" content="1105">
+
+
+
+<meta itemprop="keywords" content="前端,js," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Bluebird"/>
+<meta name="twitter:description" content="bluebird 笔记 将传统方法封闭成promise方式 Promise.promisify能够将原有的函数封装成promise的调用方式。 下面的是传统的异步"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">犀牛之家</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">犀牛之家</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Bluebird</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-02-11 </span>
+        
+          <span class="more-meta"> 约 1105 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#将传统方法封闭成promise方式">将传统方法封闭成promise方式</a></li>
+    <li><a href="#处理多个promise返回值">处理多个promise返回值</a></li>
+    <li><a href="#多个promise-处理">多个promise 处理</a></li>
+    <li><a href="#promiseprops">Promise.props</a></li>
+    <li><a href="#promisesome">Promise.some</a>
+      <ul>
+        <li><a href="#promisefinally">Promise.finally</a></li>
+        <li><a href="#promisesmap">Promises.map</a></li>
+        <li><a href="#promisereduct">Promise.reduct</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="bluebird-笔记">bluebird 笔记</h1>
+<h2 id="将传统方法封闭成promise方式">将传统方法封闭成promise方式</h2>
+<p>Promise.promisify能够将原有的函数封装成promise的调用方式。
+下面的是传统的异步调用方式。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="p">{</span><span class="nx">readFile</span><span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;fs&#39;</span>
+<span class="nx">readFile</span><span class="p">(</span><span class="s1">&#39;file1.txt&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">)</span><span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;read file error&#39;</span><span class="p">)</span><span class="p">;</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="sb">read file data:</span><span class="si">${</span><span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>利用Promise.promisify转换函数后的调用方式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">let</span> <span class="nb">Promise</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;bluebird&#34;</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">readFile</span> <span class="o">=</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">promisify</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;fs&#34;</span><span class="p">)</span><span class="p">.</span><span class="nx">readFile</span><span class="p">)</span><span class="p">;</span>
+<span class="nx">readFile</span><span class="p">(</span><span class="s2">&#34;file1.txt&#34;</span><span class="p">,</span><span class="s2">&#34;utf8&#34;</span><span class="p">)</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">contents</span><span class="p">)</span><span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="sb">read file data:</span><span class="si">${</span><span class="nx">contents</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span><span class="p">;</span>
+<span class="p">}</span><span class="p">)</span><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;error read file&#39;</span><span class="p">,</span><span class="nx">e</span><span class="p">)</span><span class="p">;</span>
+<span class="p">}</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>除了用Promise.prosisify之后bluebird还提供了一种能够转换整个调用对象的方法 Promise.promisifyAll。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">let</span> <span class="nb">Promise</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;bluebird&#34;</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">promisifyAll</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;fs&#34;</span><span class="p">)</span><span class="p">)</span><span class="p">;</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="s2">&#34;file1.txt&#34;</span><span class="p">,</span><span class="s2">&#34;utf8&#34;</span><span class="p">)</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">contents</span><span class="p">)</span><span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="sb">read file data:</span><span class="si">${</span><span class="nx">contents</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span><span class="p">;</span>
+<span class="p">}</span><span class="p">)</span><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;error read file&#39;</span><span class="p">,</span><span class="nx">e</span><span class="p">)</span><span class="p">;</span>
+<span class="p">}</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="处理多个promise返回值">处理多个promise返回值</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nb">Promise</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;bluebird&#39;</span><span class="p">)</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">fs</span><span class="o">=</span><span class="nb">Promise</span><span class="p">.</span><span class="nx">promisifyAll</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;fs&#34;</span><span class="p">)</span><span class="p">)</span>
+<span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="p">[</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileAsync</span><span class="p">(</span><span class="s2">&#34;file1.txt&#34;</span><span class="p">)</span><span class="p">,</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileAsync</span><span class="p">(</span><span class="s2">&#34;file2.txt&#34;</span><span class="p">)</span>
+<span class="p">]</span><span class="p">)</span><span class="p">.</span><span class="nx">spread</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">file1text</span><span class="p">,</span> <span class="nx">file2text</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">file1text</span> <span class="o">===</span> <span class="nx">file2text</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;files are equal&#34;</span><span class="p">)</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;files are not equal&#34;</span><span class="p">)</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>上面的代码的代码是异步读取file1.txt和file2.txt文件，并且将文件的内容存入到file1text和file2text中，一旦两个文件的内容相同输出files are equal,不相同输出files are not equal。</p>
+<h2 id="多个promise-处理">多个promise 处理</h2>
+<blockquote>
+<p>Promise.join(</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">Promise&lt;any&gt;|any values...,
+function handler
+</code></pre></td></tr></table>
+</div>
+</div><p>) -&gt; Promise</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nb">Promise</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;bluebird&#34;</span><span class="p">)</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">join</span> <span class="o">=</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">join</span><span class="p">;</span>
+
+<span class="nx">join</span><span class="p">(</span><span class="nx">getPictures</span><span class="p">(</span><span class="p">)</span><span class="p">,</span> <span class="nx">getComments</span><span class="p">(</span><span class="p">)</span><span class="p">,</span> <span class="nx">getTweets</span><span class="p">(</span><span class="p">)</span><span class="p">,</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">pictures</span><span class="p">,</span> <span class="nx">comments</span><span class="p">,</span> <span class="nx">tweets</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;in total: &#34;</span> <span class="o">+</span> <span class="nx">pictures</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="nx">comments</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="nx">tweets</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span><span class="p">;</span>
+<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>上面的的代码调用 getPictures(), getComments(), getTweets()三个异步的操作，同时输出操作的结果
+下面的代码完成赞同于上面的代码，只不过将Promise.join换成了Promise.all，并且传一个数组</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nb">Promise</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;bluebird&#34;</span><span class="p">)</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">join</span> <span class="o">=</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">join</span><span class="p">;</span>
+
+<span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="p">[</span><span class="nx">getPictures</span><span class="p">(</span><span class="p">)</span><span class="p">,</span> <span class="nx">getComments</span><span class="p">(</span><span class="p">)</span><span class="p">,</span> <span class="nx">getTweets</span><span class="p">(</span><span class="p">)</span><span class="p">]</span><span class="p">,</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">pictures</span><span class="p">,</span> <span class="nx">comments</span><span class="p">,</span> <span class="nx">tweets</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;in total: &#34;</span> <span class="o">+</span> <span class="nx">pictures</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="nx">comments</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="nx">tweets</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span><span class="p">;</span>
+<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="promiseprops">Promise.props</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nb">Promise</span><span class="p">.</span><span class="nx">props</span><span class="p">(</span><span class="p">{</span>
+    <span class="nx">file1</span><span class="o">:</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileAsync</span><span class="p">(</span><span class="s2">&#34;file1.txt&#34;</span><span class="p">)</span><span class="p">,</span>
+    <span class="nx">file2</span><span class="o">:</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileAsync</span><span class="p">(</span><span class="s2">&#34;file2.txt&#34;</span><span class="p">)</span>
+<span class="p">}</span><span class="p">)</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">file1</span><span class="p">,</span><span class="nx">result</span><span class="p">.</span><span class="nx">file2</span><span class="p">)</span><span class="p">;</span>
+<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>props能将将返回的结果放置在一个Object对象当中，可以通过result.file1来访问fs.readFileAsync(&ldquo;file1.txt&rdquo;)的文件内容</p>
+<h2 id="promisesome">Promise.some</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nb">Promise</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="p">[</span>
+    <span class="nx">ping</span><span class="p">(</span><span class="s2">&#34;ns1.example.com&#34;</span><span class="p">)</span><span class="p">,</span>
+    <span class="nx">ping</span><span class="p">(</span><span class="s2">&#34;ns2.example.com&#34;</span><span class="p">)</span><span class="p">,</span>
+    <span class="nx">ping</span><span class="p">(</span><span class="s2">&#34;ns3.example.com&#34;</span><span class="p">)</span><span class="p">,</span>
+    <span class="nx">ping</span><span class="p">(</span><span class="s2">&#34;ns4.example.com&#34;</span><span class="p">)</span>
+<span class="p">]</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="p">.</span><span class="nx">spread</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">first</span><span class="p">,</span> <span class="nx">second</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">first</span><span class="p">,</span> <span class="nx">second</span><span class="p">)</span><span class="p">;</span>
+<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>上面通过Promise.some方法来调用四次ping请求，输出其中最快的二次请求的信息。</p>
+<h3 id="promisefinally">Promise.finally</h3>
+<p>finally方法有点类似于c++中的try catch..finaly，不过promise过程是否成功，都将调用finally的方法，可以在这个方法里面写一些资源的释放之类的语句。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nb">Promise</span><span class="o">=</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;bluebird&#39;</span><span class="p">)</span>
+<span class="kd">function</span> <span class="nx">_setTimeout</span><span class="p">(</span><span class="nx">time</span><span class="p">)</span><span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="p">(</span><span class="nx">resolve</span><span class="p">,</span> <span class="nx">reject</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">resolve</span><span class="p">(</span><span class="s1">&#39;resolve&#39;</span><span class="p">)</span><span class="p">,</span><span class="nx">time</span><span class="p">)</span><span class="p">;</span>
+  <span class="p">}</span><span class="p">)</span><span class="p">.</span><span class="k">finally</span><span class="p">(</span><span class="p">(</span><span class="p">)</span><span class="p">=&gt;</span><span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">)</span><span class="p">;</span>
+  <span class="p">}</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="nx">_setTimeout</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="p">(</span><span class="nx">content</span><span class="p">)</span><span class="p">=&gt;</span><span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">content</span><span class="p">)</span><span class="p">;</span>
+<span class="p">}</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="promisesmap">Promises.map</h3>
+<p>这个方法可以遍历Object,再通过遍历的值来直接调用 Promise方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nb">Promise</span><span class="o">=</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;bluebird&#39;</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">fs</span><span class="o">=</span><span class="nb">Promise</span><span class="p">.</span><span class="nx">promisifyAll</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;fs&#34;</span><span class="p">)</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">promise</span><span class="o">=</span><span class="p">[</span><span class="p">]</span>
+<span class="kd">var</span> <span class="nx">filesNames</span><span class="o">=</span><span class="p">[</span><span class="p">]</span>
+<span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;=</span><span class="mi">2</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="p">{</span>
+  <span class="nx">promise</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">readFileAsync</span><span class="p">(</span><span class="sb">`</span><span class="sb">file</span><span class="si">${</span><span class="nx">i</span><span class="si">}</span><span class="sb">.txt</span><span class="sb">`</span><span class="p">)</span><span class="p">)</span>
+  <span class="nx">filesNames</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="sb">`</span><span class="sb">file</span><span class="si">${</span><span class="nx">i</span><span class="si">}</span><span class="sb">.txt</span><span class="sb">`</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="c1">//使用传统的Promise.all方法
+</span><span class="c1"></span><span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">promise</span><span class="p">)</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="p">)</span><span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;all&#39;</span><span class="p">)</span><span class="p">;</span>
+<span class="p">}</span><span class="p">)</span>
+<span class="c1">//通过map来批量调用
+</span><span class="c1"></span><span class="nb">Promise</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">filesNames</span><span class="p">,</span> <span class="p">(</span><span class="nx">fileName</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileAsync</span><span class="p">(</span><span class="nx">fileName</span><span class="p">)</span>
+<span class="p">}</span><span class="p">)</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;done&#39;</span><span class="p">)</span><span class="p">;</span>
+<span class="p">}</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="promisereduct">Promise.reduct</h3>
+<p>这个方法可以顺序的执行promise</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="nb">Promise</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span><span class="p">[</span><span class="s2">&#34;file1.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;file2.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;file3.txt&#34;</span><span class="p">]</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">total</span><span class="p">,</span> <span class="nx">fileName</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileAsync</span><span class="p">(</span><span class="nx">fileName</span><span class="p">,</span> <span class="s2">&#34;utf8&#34;</span><span class="p">)</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">contents</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">total</span> <span class="o">+</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">contents</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="p">;</span>
+    <span class="p">}</span><span class="p">)</span><span class="p">;</span>
+<span class="p">}</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">total</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">total</span><span class="p">)</span><span class="p">;</span>
+<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>上面的代码段是，顺序的读取file1,file2,file3三个文件的内容，并且将内容转换成整形，最终输出累加后的数据。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">changshou.wen</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-02-11
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+          <a href="/tags/js/">js</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/electron%E4%B8%8Ereact%E6%95%B4%E5%90%88/">
+            <span class="next-text nav-default">Electron与react整合</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:wenchangshou@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://github.com/wenchangshou2" class="iconfont icon-github" title="github"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">changshou.wen</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.de161082.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
