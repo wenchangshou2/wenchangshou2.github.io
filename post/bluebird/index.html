@@ -48,7 +48,7 @@
 <meta itemprop="description" content="bluebird 笔记 将传统方法封闭成promise方式 Promise.promisify能够将原有的函数封装成promise的调用方式。 下面的是传统的异步">
 <meta itemprop="datePublished" content="2020-02-11T14:34:15&#43;08:00" />
 <meta itemprop="dateModified" content="2020-02-11T14:34:15&#43;08:00" />
-<meta itemprop="wordCount" content="1105">
+<meta itemprop="wordCount" content="1107">
 
 
 
@@ -126,7 +126,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-02-11 </span>
         
-          <span class="more-meta"> 约 1105 字 </span>
+          <span class="more-meta"> 约 1107 字 </span>
           <span class="more-meta"> 预计阅读 3 分钟 </span>
         
       </div>
@@ -256,21 +256,21 @@
 </div>
 </div><p>上面的代码的代码是异步读取file1.txt和file2.txt文件，并且将文件的内容存入到file1text和file2text中，一旦两个文件的内容相同输出files are equal,不相同输出files are not equal。</p>
 <h2 id="多个promise-处理">多个promise 处理</h2>
-<blockquote>
-<p>Promise.join(</p>
-</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">Promise&lt;any&gt;|any values...,
-function handler
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"> Promise.join(
+    Promise&lt;any&gt;|any values...,
+    function handler
+) -&gt; Promise
 </code></pre></td></tr></table>
 </div>
-</div><p>) -&gt; Promise</p>
-<div class="highlight"><div class="chroma">
+</div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
