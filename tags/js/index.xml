@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>js on 犀牛人家 - 感觉自己性格跟犀牛很像笨重而又却将倔强</title>
-    <link>http://localhost:1313/tags/js/</link>
+    <link>http://blog.54wcs.com/tags/js/</link>
     <description>Recent content in js on 犀牛人家 - 感觉自己性格跟犀牛很像笨重而又却将倔强</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Tue, 11 Feb 2020 14:34:15 +0800</lastBuildDate>
     
-	<atom:link href="http://localhost:1313/tags/js/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://blog.54wcs.com/tags/js/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Bluebird</title>
-      <link>http://localhost:1313/post/bluebird/</link>
+      <link>http://blog.54wcs.com/post/bluebird/</link>
       <pubDate>Tue, 11 Feb 2020 14:34:15 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/bluebird/</guid>
+      <guid>http://blog.54wcs.com/post/bluebird/</guid>
       <description>bluebird 笔记 将传统方法封闭成promise方式 Promise.promisify能够将原有的函数封装成promise的调用方式。 下面的是传统的异步</description>
     </item>
     
