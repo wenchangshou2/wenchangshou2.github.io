@@ -49,7 +49,7 @@
 <meta itemprop="description" content="raspberry 温度采集">
 <meta itemprop="datePublished" content="2020-02-11T14:16:06&#43;08:00" />
 <meta itemprop="dateModified" content="2020-02-11T14:16:06&#43;08:00" />
-<meta itemprop="wordCount" content="755">
+<meta itemprop="wordCount" content="730">
 
 
 
@@ -127,7 +127,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-02-11 </span>
         
-          <span class="more-meta"> 约 755 字 </span>
+          <span class="more-meta"> 约 730 字 </span>
           <span class="more-meta"> 预计阅读 2 分钟 </span>
         
       </div>
@@ -174,65 +174,34 @@ cat w1_slave</p>
 ![屏幕快照 2017-05-29 下午10.42.01](<a href="http://7xrkms.com1.z0.glb.clouddn.com/">http://7xrkms.com1.z0.glb.clouddn.com/</a>屏幕快照 2017-05-29 下午10.42.01.png)
 其中t=30312是我实际测量到温度值，在上面的图中的温度为30.312度</p>
 <p>同时我们可以利用python脚本来读取数据</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-python" data-lang="python"><span class="ch">#!/usr/bin/python</span>
-<span class="k">def</span> <span class="nf">gettemp</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span><span class="p">:</span>
-  <span class="k">try</span><span class="p">:</span>
-    <span class="n">mytemp</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">&#39;</span>
-    <span class="n">filename</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">w1_slave</span><span class="s1">&#39;</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">/sys/bus/w1/devices/</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">id</span> <span class="o">+</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">/</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">r</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">(</span><span class="p">)</span> <span class="c1"># read 1st line</span>
-    <span class="n">crc</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1"> </span><span class="s1">&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">crc</span> <span class="o">=</span> <span class="n">crc</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">crc</span><span class="o">==</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">YES</span><span class="s1">&#39;</span><span class="p">:</span>
-      <span class="n">line</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">(</span><span class="p">)</span> <span class="c1"># read 2nd line</span>
-      <span class="n">mytemp</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;</span><span class="s1">t=</span><span class="s1">&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-      <span class="n">mytemp</span> <span class="o">=</span> <span class="mi">99999</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="p">)</span>
+<pre><code class="language-python">#!/usr/bin/python
+def gettemp(id):
+  try:
+    mytemp = ''
+    filename = 'w1_slave'
+    f = open('/sys/bus/w1/devices/' + id + '/' + filename, 'r')
+    line = f.readline() # read 1st line
+    crc = line.rsplit(' ',1)
+    crc = crc[1].replace('\n', '')
+    if crc=='YES':
+      line = f.readline() # read 2nd line
+      mytemp = line.rsplit('t=',1)
+    else:
+      mytemp = 99999
+    f.close()
  
-    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">mytemp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span>
+    return int(mytemp[1])
  
-  <span class="k">except</span><span class="p">:</span>
-    <span class="k">return</span> <span class="mi">99999</span>
+  except:
+    return 99999
  
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">__main__</span><span class="s1">&#39;</span><span class="p">:</span>
+if __name__ == '__main__':
  
-  <span class="c1"># Script has been called directly</span>
-  <span class="nb">id</span> <span class="o">=</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">28-0416b3b833ff</span><span class="s1">&#39;</span>
-  <span class="k">print</span> <span class="sa"></span><span class="s2">&#34;</span><span class="s2">Temp : </span><span class="s2">&#34;</span> <span class="o">+</span> <span class="sa"></span><span class="s1">&#39;</span><span class="s1">{:.3f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gettemp</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span><span class="p">)</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>我们通过命令行调用，得到如类似下面的结果</p>
+  # Script has been called directly
+  id = '28-0416b3b833ff'
+  print &quot;Temp : &quot; + '{:.3f}'.format(gettemp(id)/float(1000))
+</code></pre>
+<p>我们通过命令行调用，得到如类似下面的结果</p>
 <p>![屏幕快照 2017-05-29 下午10.48.50](<a href="http://7xrkms.com1.z0.glb.clouddn.com/">http://7xrkms.com1.z0.glb.clouddn.com/</a>屏幕快照 2017-05-29 下午10.48.50.png)</p>
     </div>
 
@@ -273,6 +242,21 @@ cat w1_slave</p>
         
 
   
+  <div id="vcomments"></div>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: '1QhU05cQQQjIVDFiUFqOrjmB-gzGzoHsz',
+        appKey: '7I7EH0szenFgd1vjnxwFUPFp',
+        notify:  false ,
+        verify:  false ,
+        avatar:'mm',
+        placeholder: '说点什么吧...',
+        visitor:  false 
+    });
+  </script>
 
   
 

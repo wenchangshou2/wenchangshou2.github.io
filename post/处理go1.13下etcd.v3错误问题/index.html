@@ -49,7 +49,7 @@
 <meta itemprop="description" content="处理etcd.v3在go 1.13错误问题">
 <meta itemprop="datePublished" content="2020-02-11T16:18:55&#43;08:00" />
 <meta itemprop="dateModified" content="2020-02-11T16:18:55&#43;08:00" />
-<meta itemprop="wordCount" content="246">
+<meta itemprop="wordCount" content="239">
 
 
 
@@ -127,7 +127,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-02-11 </span>
         
-          <span class="more-meta"> 约 246 字 </span>
+          <span class="more-meta"> 约 239 字 </span>
           <span class="more-meta"> 预计阅读 1 分钟 </span>
         
       </div>
@@ -144,40 +144,23 @@
 <h1 id="处理go113下etcdv3错误问题">处理go1.13下etcd.v3错误问题</h1>
 <p>在go v1.13拉取etcd会报下面的错误</p>
 <blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">build command-line-arguments: cannot load github.com/coreos/go-systemd/journal: no matching versions for query &#34;latest&#34;
-</code></pre></td></tr></table>
-</div>
-</div></blockquote>
+<pre><code>build command-line-arguments: cannot load github.com/coreos/go-systemd/journal: no matching versions for query &quot;latest&quot;
+</code></pre>
+</blockquote>
 <p>解决上面的问题只要将go.mod里面添加一行代码</p>
 <blockquote>
 <p>　replace github.com/coreos/go-systemd =&gt; github.com/coreos/go-systemd/v22 v22.0.0</p>
 </blockquote>
 <p>然后再调用go get go.etcd.io/etcd/clientv3来拉取相应的库，这里你会发现又会出现下面的错误</p>
 <blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback"> github.com/coreos/etcd/clientv3/balancer/resolver/endpoint
+<pre><code> github.com/coreos/etcd/clientv3/balancer/resolver/endpoint
 ../../go/pkg/mod/github.com/coreos/etcd@v3.3.18+incompatible/clientv3/balancer/resolver/endpoint/endpoint.go:114:78: undefined: resolver.BuildOption
 ../../go/pkg/mod/github.com/coreos/etcd@v3.3.18+incompatible/clientv3/balancer/resolver/endpoint/endpoint.go:182:31: undefined: resolver.ResolveNowOption
 # github.com/coreos/etcd/clientv3/balancer/picker
 ../../go/pkg/mod/github.com/coreos/etcd@v3.3.18+incompatible/clientv3/balancer/picker/err.go:37:44: undefined: balancer.PickOptions
 ../../go/pkg/mod/github.com/coreos/etcd@v3.3.18+incompatible/clientv3/balancer/picker/roundrobin_balanced.go:55:54: undefined: balancer.PickOptions
-</code></pre></td></tr></table>
-</div>
-</div></blockquote>
+</code></pre>
+</blockquote>
 <p>后来查了很久才发现etcd 3.3.18与grpc的版本有冲突，需要将grpc降级到1.26版本</p>
 <blockquote>
 <p>go get <a href="mailto:google.golang.org/grpc@v1.26.0">google.golang.org/grpc@v1.26.0</a></p>
@@ -218,6 +201,21 @@
         
 
   
+  <div id="vcomments"></div>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: '1QhU05cQQQjIVDFiUFqOrjmB-gzGzoHsz',
+        appKey: '7I7EH0szenFgd1vjnxwFUPFp',
+        notify:  false ,
+        verify:  false ,
+        avatar:'mm',
+        placeholder: '说点什么吧...',
+        visitor:  false 
+    });
+  </script>
 
   
 

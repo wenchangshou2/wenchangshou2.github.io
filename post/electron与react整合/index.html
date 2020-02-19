@@ -48,7 +48,7 @@
 <meta itemprop="description" content="我们知道如果需要electron和vue.js开发，可以通过electron-vue直接创建一个带vue的electron的项目，那么今天我">
 <meta itemprop="datePublished" content="2020-02-11T14:32:57&#43;08:00" />
 <meta itemprop="dateModified" content="2020-02-11T14:32:57&#43;08:00" />
-<meta itemprop="wordCount" content="1558">
+<meta itemprop="wordCount" content="1336">
 
 
 
@@ -126,8 +126,8 @@
       <div class="post-meta">
         <span class="post-time"> 2020-02-11 </span>
         
-          <span class="more-meta"> 约 1558 字 </span>
-          <span class="more-meta"> 预计阅读 4 分钟 </span>
+          <span class="more-meta"> 约 1336 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
         
       </div>
     </header>
@@ -158,586 +158,279 @@
 <p>Yarn是facebook推出的一个更加靠近的的包管理工具。</p>
 <p><strong>mac下安装</strong></p>
 <blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">brew install yarn
-</code></pre></td></tr></table>
-</div>
-</div></blockquote>
+<pre><code>brew install yarn
+</code></pre>
+</blockquote>
 <p><strong>Linux下安装</strong></p>
 <p>在ubuntu中默认的包仓库是没有yarn的包的，我们需要：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg <span class="p">|</span> sudo apt-key add -
-<span class="nb">echo</span> <span class="s2">&#34;deb https://dl.yarnpkg.com/debian/ stable main&#34;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/yarn.list
-</code></pre></td></tr></table>
-</div>
-</div><p>在我们导入证书和源之后，可以通过下列的命令直接安装</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt-get update <span class="o">&amp;&amp;</span> sudo apt-get install yarn
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="安装create-react-app">安装create-react-app</h2>
+<pre><code class="language-shell">curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo &quot;deb https://dl.yarnpkg.com/debian/ stable main&quot; | sudo tee /etc/apt/sources.list.d/yarn.list
+</code></pre>
+<p>在我们导入证书和源之后，可以通过下列的命令直接安装</p>
+<pre><code class="language-shell">sudo apt-get update &amp;&amp; sudo apt-get install yarn
+</code></pre>
+<h2 id="安装create-react-app">安装create-react-app</h2>
 <p>create-react-app是一个创建react项目的工具，通过这个工具可以快速创建一个初始的react项目。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">yarn global add create-react-app
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="创建react项目">创建react项目</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">create-react-app app
-<span class="nb">cd</span> app
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="添加electron">添加electron</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">yarn add electron
+<pre><code class="language-shell">yarn global add create-react-app
+</code></pre>
+<h2 id="创建react项目">创建react项目</h2>
+<pre><code class="language-shell">create-react-app app
+cd app
+</code></pre>
+<h2 id="添加electron">添加electron</h2>
+<pre><code class="language-shell">yarn add electron
 yarn add electron-builder -D
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="安装foreman帮助我们在命令行下运行应用程序">安装foreman帮助我们在命令行下运行应用程序</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">yarn global add foreman
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="安装create-react-app创建的项目依赖">安装create-react-app创建的项目依赖</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">yarn install
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="配置eslint">配置eslint</h2>
+</code></pre>
+<h2 id="安装foreman帮助我们在命令行下运行应用程序">安装foreman帮助我们在命令行下运行应用程序</h2>
+<pre><code class="language-shell">yarn global add foreman
+</code></pre>
+<h2 id="安装create-react-app创建的项目依赖">安装create-react-app创建的项目依赖</h2>
+<pre><code class="language-shell">yarn install
+</code></pre>
+<h2 id="配置eslint">配置eslint</h2>
 <p>eslint配置你的代码的规范，配合atom或者vs code，能够实时的观测你的代码风格是否符合规范。</p>
 <blockquote>
 <p>touch .eslintrc.json</p>
 </blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>
-    <span class="s2">&#34;env&#34;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&#34;browser&#34;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">&#34;commonjs&#34;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">&#34;es6&#34;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="s2">&#34;jest&#34;</span><span class="o">:</span> <span class="kc">true</span>
-    <span class="p">}</span><span class="p">,</span>
-    <span class="s2">&#34;parserOptions&#34;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&#34;ecmaFeatures&#34;</span><span class="o">:</span> <span class="p">{</span>
-            <span class="s2">&#34;jsx&#34;</span><span class="o">:</span> <span class="kc">true</span>
-        <span class="p">}</span><span class="p">,</span>
-        <span class="s2">&#34;sourceType&#34;</span><span class="o">:</span> <span class="s2">&#34;module&#34;</span>
-    <span class="p">}</span><span class="p">,</span>
-    <span class="s2">&#34;rules&#34;</span><span class="o">:</span> <span class="p">{</span>
-        <span class="s2">&#34;no-const-assign&#34;</span><span class="o">:</span> <span class="s2">&#34;warn&#34;</span><span class="p">,</span>
-        <span class="s2">&#34;no-this-before-super&#34;</span><span class="o">:</span> <span class="s2">&#34;warn&#34;</span><span class="p">,</span>
-        <span class="s2">&#34;no-undef&#34;</span><span class="o">:</span> <span class="s2">&#34;warn&#34;</span><span class="p">,</span>
-        <span class="s2">&#34;no-continue&#34;</span><span class="o">:</span> <span class="s2">&#34;off&#34;</span><span class="p">,</span>
-        <span class="s2">&#34;no-unreachable&#34;</span><span class="o">:</span> <span class="s2">&#34;warn&#34;</span><span class="p">,</span>
-        <span class="s2">&#34;no-unused-vars&#34;</span><span class="o">:</span> <span class="s2">&#34;warn&#34;</span><span class="p">,</span>
-        <span class="s2">&#34;constructor-super&#34;</span><span class="o">:</span> <span class="s2">&#34;warn&#34;</span><span class="p">,</span>
-        <span class="s2">&#34;valid-typeof&#34;</span><span class="o">:</span> <span class="s2">&#34;warn&#34;</span><span class="p">,</span>
-        <span class="s2">&#34;space-before-function-paren&#34;</span><span class="o">:</span><span class="s2">&#34;off&#34;</span><span class="p">,</span>
-        <span class="s2">&#34;function-paren-newline&#34;</span><span class="o">:</span><span class="s2">&#34;off&#34;</span><span class="p">,</span>
-        <span class="s2">&#34;no-plusplus&#34;</span><span class="o">:</span><span class="s2">&#34;off&#34;</span><span class="p">,</span>
-        <span class="s2">&#34;quotes&#34;</span><span class="o">:</span> <span class="p">[</span>
-            <span class="mi">2</span><span class="p">,</span>
-            <span class="s2">&#34;single&#34;</span>
-        <span class="p">]</span>
-    <span class="p">}</span><span class="p">,</span>
-    <span class="s2">&#34;parser&#34;</span><span class="o">:</span> <span class="s2">&#34;babel-eslint&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;extends&#34;</span><span class="o">:</span> <span class="s2">&#34;airbnb&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;plugins&#34;</span><span class="o">:</span> <span class="p">[</span>
-        <span class="s2">&#34;react&#34;</span><span class="p">,</span>
-        <span class="s2">&#34;jsx-a11y&#34;</span><span class="p">,</span>
-        <span class="s2">&#34;import&#34;</span>
-    <span class="p">]</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>同时我们需要安装ESLint的相应的插件</p>
+<pre><code class="language-js">{
+    &quot;env&quot;: {
+        &quot;browser&quot;: true,
+        &quot;commonjs&quot;: true,
+        &quot;es6&quot;: true,
+        &quot;jest&quot;: true
+    },
+    &quot;parserOptions&quot;: {
+        &quot;ecmaFeatures&quot;: {
+            &quot;jsx&quot;: true
+        },
+        &quot;sourceType&quot;: &quot;module&quot;
+    },
+    &quot;rules&quot;: {
+        &quot;no-const-assign&quot;: &quot;warn&quot;,
+        &quot;no-this-before-super&quot;: &quot;warn&quot;,
+        &quot;no-undef&quot;: &quot;warn&quot;,
+        &quot;no-continue&quot;: &quot;off&quot;,
+        &quot;no-unreachable&quot;: &quot;warn&quot;,
+        &quot;no-unused-vars&quot;: &quot;warn&quot;,
+        &quot;constructor-super&quot;: &quot;warn&quot;,
+        &quot;valid-typeof&quot;: &quot;warn&quot;,
+        &quot;space-before-function-paren&quot;:&quot;off&quot;,
+        &quot;function-paren-newline&quot;:&quot;off&quot;,
+        &quot;no-plusplus&quot;:&quot;off&quot;,
+        &quot;quotes&quot;: [
+            2,
+            &quot;single&quot;
+        ]
+    },
+    &quot;parser&quot;: &quot;babel-eslint&quot;,
+    &quot;extends&quot;: &quot;airbnb&quot;,
+    &quot;plugins&quot;: [
+        &quot;react&quot;,
+        &quot;jsx-a11y&quot;,
+        &quot;import&quot;
+    ]
+}
+</code></pre>
+<p>同时我们需要安装ESLint的相应的插件</p>
 <blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">yarn add eslint eslint-config-airbnb eslint-plugin-jsx-a11y eslint-plugin-import eslint-plugin-react eslint-plugin-import
-</code></pre></td></tr></table>
-</div>
-</div></blockquote>
+<pre><code>yarn add eslint eslint-config-airbnb eslint-plugin-jsx-a11y eslint-plugin-import eslint-plugin-react eslint-plugin-import
+</code></pre>
+</blockquote>
 <p>在经过上面的操作之后，我们需要对package.json进行修改来适配electron</p>
 <p>我们暂时将内容修改成下面的内容</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>
-  <span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="s2">&#34;qiniu-upload&#34;</span><span class="p">,</span>
-  <span class="s2">&#34;version&#34;</span><span class="o">:</span> <span class="s2">&#34;0.1.0&#34;</span><span class="p">,</span>
-  <span class="s2">&#34;private&#34;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="s2">&#34;homepage&#34;</span><span class="o">:</span> <span class="s2">&#34;./&#34;</span><span class="p">,</span>
-  <span class="s2">&#34;main&#34;</span><span class="o">:</span> <span class="s2">&#34;src/electron-starter.js&#34;</span><span class="p">,</span>
-  <span class="s2">&#34;dependencies&#34;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&#34;electron&#34;</span><span class="o">:</span> <span class="s2">&#34;^1.8.4&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;eslint&#34;</span><span class="o">:</span> <span class="s2">&#34;^4.19.1&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;eslint-config-airbnb&#34;</span><span class="o">:</span> <span class="s2">&#34;^16.1.0&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;eslint-plugin-import&#34;</span><span class="o">:</span> <span class="s2">&#34;^2.10.0&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;eslint-plugin-jsx-a11y&#34;</span><span class="o">:</span> <span class="s2">&#34;^6.0.3&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;eslint-plugin-react&#34;</span><span class="o">:</span> <span class="s2">&#34;^7.7.0&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;prop-types&#34;</span><span class="o">:</span> <span class="s2">&#34;^15.6.1&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;react&#34;</span><span class="o">:</span> <span class="s2">&#34;^16.3.0&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;react-dom&#34;</span><span class="o">:</span> <span class="s2">&#34;^16.3.0&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;react-scripts&#34;</span><span class="o">:</span> <span class="s2">&#34;1.1.1&#34;</span><span class="p">,</span>
-  <span class="p">}</span><span class="p">,</span>
-  <span class="s2">&#34;scripts&#34;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&#34;start&#34;</span><span class="o">:</span> <span class="s2">&#34;nf start -p 3000&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;build&#34;</span><span class="o">:</span> <span class="s2">&#34;react-scripts build&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;test&#34;</span><span class="o">:</span> <span class="s2">&#34;react-scripts test --env=jsdom&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;eject&#34;</span><span class="o">:</span> <span class="s2">&#34;react-scripts eject&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;electron&#34;</span><span class="o">:</span> <span class="s2">&#34;electron .&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;electron-start&#34;</span><span class="o">:</span> <span class="s2">&#34; node src/electron-wait-react&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;react-start&#34;</span><span class="o">:</span> <span class="s2">&#34;react-scripts start&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;pack&#34;</span><span class="o">:</span> <span class="s2">&#34;build --dir&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;dist&#34;</span><span class="o">:</span> <span class="s2">&#34;npm run build &amp;&amp; build&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;postinstall&#34;</span><span class="o">:</span> <span class="s2">&#34;install-app-deps&#34;</span>
-  <span class="p">}</span><span class="p">,</span>
-  <span class="s2">&#34;devDependencies&#34;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&#34;electron-builder&#34;</span><span class="o">:</span> <span class="s2">&#34;^20.8.1&#34;</span>
-  <span class="p">}</span><span class="p">,</span>
-  <span class="s2">&#34;build&#34;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&#34;appId&#34;</span><span class="o">:</span> <span class="s2">&#34;com.electron.electron-with-create-react-app&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;win&#34;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&#34;iconUrl&#34;</span><span class="o">:</span> <span class="s2">&#34;https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png&#34;</span>
-    <span class="p">}</span><span class="p">,</span>
-    <span class="s2">&#34;directories&#34;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&#34;buildResources&#34;</span><span class="o">:</span> <span class="s2">&#34;public&#34;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<pre><code class="language-js">{
+  &quot;name&quot;: &quot;qiniu-upload&quot;,
+  &quot;version&quot;: &quot;0.1.0&quot;,
+  &quot;private&quot;: true,
+  &quot;homepage&quot;: &quot;./&quot;,
+  &quot;main&quot;: &quot;src/electron-starter.js&quot;,
+  &quot;dependencies&quot;: {
+    &quot;electron&quot;: &quot;^1.8.4&quot;,
+    &quot;eslint&quot;: &quot;^4.19.1&quot;,
+    &quot;eslint-config-airbnb&quot;: &quot;^16.1.0&quot;,
+    &quot;eslint-plugin-import&quot;: &quot;^2.10.0&quot;,
+    &quot;eslint-plugin-jsx-a11y&quot;: &quot;^6.0.3&quot;,
+    &quot;eslint-plugin-react&quot;: &quot;^7.7.0&quot;,
+    &quot;prop-types&quot;: &quot;^15.6.1&quot;,
+    &quot;react&quot;: &quot;^16.3.0&quot;,
+    &quot;react-dom&quot;: &quot;^16.3.0&quot;,
+    &quot;react-scripts&quot;: &quot;1.1.1&quot;,
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;nf start -p 3000&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;,
+    &quot;electron&quot;: &quot;electron .&quot;,
+    &quot;electron-start&quot;: &quot; node src/electron-wait-react&quot;,
+    &quot;react-start&quot;: &quot;react-scripts start&quot;,
+    &quot;pack&quot;: &quot;build --dir&quot;,
+    &quot;dist&quot;: &quot;npm run build &amp;&amp; build&quot;,
+    &quot;postinstall&quot;: &quot;install-app-deps&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;electron-builder&quot;: &quot;^20.8.1&quot;
+  },
+  &quot;build&quot;: {
+    &quot;appId&quot;: &quot;com.electron.electron-with-create-react-app&quot;,
+    &quot;win&quot;: {
+      &quot;iconUrl&quot;: &quot;https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png&quot;
+    },
+    &quot;directories&quot;: {
+      &quot;buildResources&quot;: &quot;public&quot;
+    }
+  }
+}
 
-</code></pre></td></tr></table>
-</div>
-</div><p>上面的版本可能随时在变，不用太介意，用最新的版本就可以</p>
+</code></pre>
+<p>上面的版本可能随时在变，不用太介意，用最新的版本就可以</p>
 <p>上面的我们将原本的start改成了react-start，对于其他的没有做任何的改变，现在还需要添加electron的处理内容</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">  &#34;homepage&#34;: &#34;./&#34;,
-  &#34;main&#34;: &#34;src/electron-starter.js&#34;,
-</code></pre></td></tr></table>
-</div>
-</div><p><strong>和</strong></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-json" data-lang="json">  <span class="s2">&#34;build&#34;</span><span class="err">:</span> <span class="p">{</span>
-    <span class="nt">&#34;appId&#34;</span><span class="p">:</span> <span class="s2">&#34;com.electron.electron-with-create-react-app&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;win&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;iconUrl&#34;</span><span class="p">:</span> <span class="s2">&#34;https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png&#34;</span>
-    <span class="p">}</span><span class="p">,</span>
-    <span class="nt">&#34;directories&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;buildResources&#34;</span><span class="p">:</span> <span class="s2">&#34;public&#34;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>修改之后最终的文件内容:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>
-  <span class="s2">&#34;name&#34;</span><span class="o">:</span> <span class="s2">&#34;qiniu-upload&#34;</span><span class="p">,</span>
-  <span class="s2">&#34;version&#34;</span><span class="o">:</span> <span class="s2">&#34;0.1.0&#34;</span><span class="p">,</span>
-  <span class="s2">&#34;private&#34;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="s2">&#34;homepage&#34;</span><span class="o">:</span> <span class="s2">&#34;./&#34;</span><span class="p">,</span>
-  <span class="s2">&#34;main&#34;</span><span class="o">:</span> <span class="s2">&#34;src/electron-starter.js&#34;</span><span class="p">,</span>
-  <span class="s2">&#34;dependencies&#34;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&#34;electron&#34;</span><span class="o">:</span> <span class="s2">&#34;^1.8.4&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;eslint&#34;</span><span class="o">:</span> <span class="s2">&#34;^4.19.1&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;eslint-config-airbnb&#34;</span><span class="o">:</span> <span class="s2">&#34;^16.1.0&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;eslint-plugin-import&#34;</span><span class="o">:</span> <span class="s2">&#34;^2.10.0&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;eslint-plugin-jsx-a11y&#34;</span><span class="o">:</span> <span class="s2">&#34;^6.0.3&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;eslint-plugin-react&#34;</span><span class="o">:</span> <span class="s2">&#34;^7.7.0&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;prop-types&#34;</span><span class="o">:</span> <span class="s2">&#34;^15.6.1&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;react&#34;</span><span class="o">:</span> <span class="s2">&#34;^16.3.0&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;react-dom&#34;</span><span class="o">:</span> <span class="s2">&#34;^16.3.0&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;react-redux&#34;</span><span class="o">:</span> <span class="s2">&#34;^5.0.7&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;react-scripts&#34;</span><span class="o">:</span> <span class="s2">&#34;1.1.1&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;redux&#34;</span><span class="o">:</span> <span class="s2">&#34;^3.7.2&#34;</span>
-  <span class="p">}</span><span class="p">,</span>
-  <span class="s2">&#34;scripts&#34;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&#34;start&#34;</span><span class="o">:</span> <span class="s2">&#34;nf start -p 3000&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;build&#34;</span><span class="o">:</span> <span class="s2">&#34;react-scripts build&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;test&#34;</span><span class="o">:</span> <span class="s2">&#34;react-scripts test --env=jsdom&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;eject&#34;</span><span class="o">:</span> <span class="s2">&#34;react-scripts eject&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;electron&#34;</span><span class="o">:</span> <span class="s2">&#34;electron .&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;electron-start&#34;</span><span class="o">:</span> <span class="s2">&#34; node src/electron-wait-react&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;react-start&#34;</span><span class="o">:</span> <span class="s2">&#34;react-scripts start&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;pack&#34;</span><span class="o">:</span> <span class="s2">&#34;build --dir&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;dist&#34;</span><span class="o">:</span> <span class="s2">&#34;npm run build &amp;&amp; build&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;postinstall&#34;</span><span class="o">:</span> <span class="s2">&#34;install-app-deps&#34;</span>
-  <span class="p">}</span><span class="p">,</span>
-  <span class="s2">&#34;devDependencies&#34;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&#34;electron-builder&#34;</span><span class="o">:</span> <span class="s2">&#34;^20.8.1&#34;</span>
-  <span class="p">}</span><span class="p">,</span>
-  <span class="s2">&#34;build&#34;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&#34;appId&#34;</span><span class="o">:</span> <span class="s2">&#34;com.electron.electron-with-create-react-app&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;win&#34;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&#34;iconUrl&#34;</span><span class="o">:</span> <span class="s2">&#34;https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png&#34;</span>
-    <span class="p">}</span><span class="p">,</span>
-    <span class="s2">&#34;directories&#34;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&#34;buildResources&#34;</span><span class="o">:</span> <span class="s2">&#34;public&#34;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<pre><code>  &quot;homepage&quot;: &quot;./&quot;,
+  &quot;main&quot;: &quot;src/electron-starter.js&quot;,
+</code></pre>
+<p><strong>和</strong></p>
+<pre><code class="language-json">  &quot;build&quot;: {
+    &quot;appId&quot;: &quot;com.electron.electron-with-create-react-app&quot;,
+    &quot;win&quot;: {
+      &quot;iconUrl&quot;: &quot;https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png&quot;
+    },
+    &quot;directories&quot;: {
+      &quot;buildResources&quot;: &quot;public&quot;
+    }
+  }
+</code></pre>
+<p>修改之后最终的文件内容:</p>
+<pre><code class="language-js">{
+  &quot;name&quot;: &quot;qiniu-upload&quot;,
+  &quot;version&quot;: &quot;0.1.0&quot;,
+  &quot;private&quot;: true,
+  &quot;homepage&quot;: &quot;./&quot;,
+  &quot;main&quot;: &quot;src/electron-starter.js&quot;,
+  &quot;dependencies&quot;: {
+    &quot;electron&quot;: &quot;^1.8.4&quot;,
+    &quot;eslint&quot;: &quot;^4.19.1&quot;,
+    &quot;eslint-config-airbnb&quot;: &quot;^16.1.0&quot;,
+    &quot;eslint-plugin-import&quot;: &quot;^2.10.0&quot;,
+    &quot;eslint-plugin-jsx-a11y&quot;: &quot;^6.0.3&quot;,
+    &quot;eslint-plugin-react&quot;: &quot;^7.7.0&quot;,
+    &quot;prop-types&quot;: &quot;^15.6.1&quot;,
+    &quot;react&quot;: &quot;^16.3.0&quot;,
+    &quot;react-dom&quot;: &quot;^16.3.0&quot;,
+    &quot;react-redux&quot;: &quot;^5.0.7&quot;,
+    &quot;react-scripts&quot;: &quot;1.1.1&quot;,
+    &quot;redux&quot;: &quot;^3.7.2&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;nf start -p 3000&quot;,
+    &quot;build&quot;: &quot;react-scripts build&quot;,
+    &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,
+    &quot;eject&quot;: &quot;react-scripts eject&quot;,
+    &quot;electron&quot;: &quot;electron .&quot;,
+    &quot;electron-start&quot;: &quot; node src/electron-wait-react&quot;,
+    &quot;react-start&quot;: &quot;react-scripts start&quot;,
+    &quot;pack&quot;: &quot;build --dir&quot;,
+    &quot;dist&quot;: &quot;npm run build &amp;&amp; build&quot;,
+    &quot;postinstall&quot;: &quot;install-app-deps&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;electron-builder&quot;: &quot;^20.8.1&quot;
+  },
+  &quot;build&quot;: {
+    &quot;appId&quot;: &quot;com.electron.electron-with-create-react-app&quot;,
+    &quot;win&quot;: {
+      &quot;iconUrl&quot;: &quot;https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png&quot;
+    },
+    &quot;directories&quot;: {
+      &quot;buildResources&quot;: &quot;public&quot;
+    }
+  }
+}
 
-</code></pre></td></tr></table>
-</div>
-</div><p>现在我们还需要在项目的根目录下面创建一个名为Procfile的文件，其内容如下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">react: npm run react-start
+</code></pre>
+<p>现在我们还需要在项目的根目录下面创建一个名为Procfile的文件，其内容如下：</p>
+<pre><code>react: npm run react-start
 electron: npm run electron-start
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="继续完善">继续完善</h2>
+</code></pre>
+<h2 id="继续完善">继续完善</h2>
 <p>现在我们还需要完成src/electron-start.js以及src/start-react.js文件</p>
 <blockquote>
 <p>src/electron-start.js</p>
 </blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">electron</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;electron&#39;</span><span class="p">)</span><span class="p">;</span>
-<span class="kr">const</span> <span class="p">{</span> <span class="nx">app</span><span class="p">,</span> <span class="nx">BrowserWindow</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">electron</span><span class="p">;</span>
+<pre><code class="language-js">const electron = require('electron');
+const { app, BrowserWindow } = electron;
 
-<span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span><span class="p">;</span>
-<span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;url&#39;</span><span class="p">)</span><span class="p">;</span>
+const path = require('path');
+const url = require('url');
 
 
-<span class="kd">let</span> <span class="nx">mainWindow</span><span class="p">;</span>
+let mainWindow;
 
-<span class="kd">function</span> <span class="nx">createWindow</span><span class="p">(</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">mainWindow</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BrowserWindow</span><span class="p">(</span><span class="p">{</span> <span class="nx">width</span><span class="o">:</span> <span class="mi">800</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span> <span class="mi">600</span> <span class="p">}</span><span class="p">)</span><span class="p">;</span>
+function createWindow() {
+  mainWindow = new BrowserWindow({ width: 800, height: 600 });
 
-  <span class="kr">const</span> <span class="nx">startUrl</span> <span class="o">=</span>
-    <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ELECTRON_START_URL</span> <span class="o">||</span>
-    <span class="nx">url</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="p">{</span>
-      <span class="nx">pathname</span><span class="o">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;/../build/index.html&#39;</span><span class="p">)</span><span class="p">,</span>
-      <span class="nx">protocol</span><span class="o">:</span> <span class="s1">&#39;file:&#39;</span><span class="p">,</span>
-      <span class="nx">slashes</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="p">}</span><span class="p">)</span><span class="p">;</span>
-  <span class="nx">mainWindow</span><span class="p">.</span><span class="nx">loadURL</span><span class="p">(</span><span class="nx">startUrl</span><span class="p">)</span><span class="p">;</span>
-  <span class="nx">mainWindow</span><span class="p">.</span><span class="nx">webContents</span><span class="p">.</span><span class="nx">openDevTools</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+  const startUrl =
+    process.env.ELECTRON_START_URL ||
+    url.format({
+      pathname: path.join(__dirname, '/../build/index.html'),
+      protocol: 'file:',
+      slashes: true,
+    });
+  mainWindow.loadURL(startUrl);
+  mainWindow.webContents.openDevTools();
 
-  <span class="nx">mainWindow</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;closed&#39;</span><span class="p">,</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">mainWindow</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-  <span class="p">}</span><span class="p">)</span><span class="p">;</span>
-<span class="p">}</span>
+  mainWindow.on('closed', () =&gt; {
+    mainWindow = null;
+  });
+}
 
-<span class="nx">app</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;ready&#39;</span><span class="p">,</span> <span class="nx">createWindow</span><span class="p">)</span><span class="p">;</span>
+app.on('ready', createWindow);
 
-<span class="nx">app</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;window-all-closed&#39;</span><span class="p">,</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">platform</span> <span class="o">!==</span> <span class="s1">&#39;darwin&#39;</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">app</span><span class="p">.</span><span class="nx">quit</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+app.on('window-all-closed', () =&gt; {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
 
-<span class="nx">app</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;activate&#39;</span><span class="p">,</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">mainWindow</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">createWindow</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+app.on('activate', () =&gt; {
+  if (mainWindow === null) {
+    createWindow();
+  }
+});
 
-</code></pre></td></tr></table>
-</div>
-</div><blockquote>
+</code></pre>
+<blockquote>
 <p>src/start-react.js</p>
 </blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">net</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;net&#39;</span><span class="p">)</span><span class="p">;</span>
-<span class="kr">const</span> <span class="nx">childProcess</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;child_process&#39;</span><span class="p">)</span><span class="p">;</span>
+<pre><code class="language-js">const net = require('net');
+const childProcess = require('child_process');
 
-<span class="kr">const</span> <span class="nx">port</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span> <span class="o">?</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span> <span class="o">-</span> <span class="mi">100</span> <span class="o">:</span> <span class="mi">3000</span><span class="p">;</span>
+const port = process.env.PORT ? process.env.PORT - 100 : 3000;
 
-<span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">ELECTRON_START_URL</span> <span class="o">=</span> <span class="sb">`</span><span class="sb">http://localhost:</span><span class="si">${</span><span class="nx">port</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+process.env.ELECTRON_START_URL = `http://localhost:${port}`;
 
-<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">net</span><span class="p">.</span><span class="nx">Socket</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+const client = new net.Socket();
 
-<span class="kd">let</span> <span class="nx">startedElectron</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-<span class="kr">const</span> <span class="nx">tryConnection</span> <span class="o">=</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="nx">client</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="p">{</span> <span class="nx">port</span> <span class="p">}</span><span class="p">,</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">client</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">startedElectron</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;starting electron&#39;</span><span class="p">)</span><span class="p">;</span>
-      <span class="nx">startedElectron</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-      <span class="kr">const</span> <span class="p">{</span> <span class="nx">exec</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">childProcess</span><span class="p">;</span>
-      <span class="nx">exec</span><span class="p">(</span><span class="s1">&#39;npm run electron&#39;</span><span class="p">)</span><span class="p">;</span>
-    <span class="p">}</span>
-  <span class="p">}</span><span class="p">)</span><span class="p">;</span>
-<span class="p">}</span><span class="p">;</span>
+let startedElectron = false;
+const tryConnection = () =&gt; {
+  client.connect({ port }, () =&gt; {
+    client.end();
+    if (!startedElectron) {
+      console.log('starting electron');
+      startedElectron = true;
+      const { exec } = childProcess;
+      exec('npm run electron');
+    }
+  });
+};
 
-<span class="nx">tryConnection</span><span class="p">(</span><span class="p">)</span><span class="p">;</span>
+tryConnection();
 
-<span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="p">(</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">tryConnection</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span><span class="p">;</span>
-<span class="p">}</span><span class="p">)</span><span class="p">;</span>
+client.on('error', () =&gt; {
+  setTimeout(tryConnection, 1000);
+});
 
-</code></pre></td></tr></table>
-</div>
-</div><h2 id="启动">启动</h2>
+</code></pre>
+<h2 id="启动">启动</h2>
 <p>现在我们运行</p>
 <blockquote>
 <p>yarn start</p>
@@ -787,6 +480,21 @@ electron: npm run electron-start
         
 
   
+  <div id="vcomments"></div>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: '1QhU05cQQQjIVDFiUFqOrjmB-gzGzoHsz',
+        appKey: '7I7EH0szenFgd1vjnxwFUPFp',
+        notify:  false ,
+        verify:  false ,
+        avatar:'mm',
+        placeholder: '说点什么吧...',
+        visitor:  false 
+    });
+  </script>
 
   
 

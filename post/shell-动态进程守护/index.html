@@ -49,7 +49,7 @@
 <meta itemprop="description" content="主要用于openwrt里面的进程守护的脚本，检测程序是否运行，程序不存在就运行相应的脚本">
 <meta itemprop="datePublished" content="2020-02-11T14:21:06&#43;08:00" />
 <meta itemprop="dateModified" content="2020-02-11T14:21:06&#43;08:00" />
-<meta itemprop="wordCount" content="1151">
+<meta itemprop="wordCount" content="872">
 
 
 
@@ -127,8 +127,8 @@
       <div class="post-meta">
         <span class="post-time"> 2020-02-11 </span>
         
-          <span class="more-meta"> 约 1151 字 </span>
-          <span class="more-meta"> 预计阅读 3 分钟 </span>
+          <span class="more-meta"> 约 872 字 </span>
+          <span class="more-meta"> 预计阅读 2 分钟 </span>
         
       </div>
     </header>
@@ -151,586 +151,292 @@
     <div class="post-content">
       <p>主要用于openwrt里面的进程守护的脚本，检测程序是否运行，程序不存在就运行相应的脚本</p>
 <h3 id="配置文件">配置文件</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">config general general
+<pre><code class="language-uci">config general general
     option enable 1
 
 config monitor
-    option name &#39;scplc&#39;
+    option name 'scplc'
     option enable 1
-    option pschkstr &#39;sc-serv plc&#39;
-    option type     &#39;application&#39;
-    option tmpfile &#39;/tmp/monitor/plc.mon&#39;
-    option mqttkey &#39;/app/mon/plc/status&#39;
+    option pschkstr 'sc-serv plc'
+    option type     'application'
+    option tmpfile '/tmp/monitor/plc.mon'
+    option mqttkey '/app/mon/plc/status'
     option timeLimit 60 
-    option execcmd &#39;&#39;
+    option execcmd ''
 
 config monitor
-    option name &#39;scgpio&#39;
+    option name 'scgpio'
     option enable 1
-    option pschkstr &#39;sc-serv gpio&#39;
-    option type     &#39;application&#39;
-    option tmpfile &#39;/tmp/monitor/gpio.mon&#39;
-    option mqttkey &#39;/app/mon/gpio/status&#39;
+    option pschkstr 'sc-serv gpio'
+    option type     'application'
+    option tmpfile '/tmp/monitor/gpio.mon'
+    option mqttkey '/app/mon/gpio/status'
     option timeLimit 60 
-    option execcmd &#39;&#39;
+    option execcmd ''
 
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="代码">代码</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
-</span><span class="lnt">  2
-</span><span class="lnt">  3
-</span><span class="lnt">  4
-</span><span class="lnt">  5
-</span><span class="lnt">  6
-</span><span class="lnt">  7
-</span><span class="lnt">  8
-</span><span class="lnt">  9
-</span><span class="lnt"> 10
-</span><span class="lnt"> 11
-</span><span class="lnt"> 12
-</span><span class="lnt"> 13
-</span><span class="lnt"> 14
-</span><span class="lnt"> 15
-</span><span class="lnt"> 16
-</span><span class="lnt"> 17
-</span><span class="lnt"> 18
-</span><span class="lnt"> 19
-</span><span class="lnt"> 20
-</span><span class="lnt"> 21
-</span><span class="lnt"> 22
-</span><span class="lnt"> 23
-</span><span class="lnt"> 24
-</span><span class="lnt"> 25
-</span><span class="lnt"> 26
-</span><span class="lnt"> 27
-</span><span class="lnt"> 28
-</span><span class="lnt"> 29
-</span><span class="lnt"> 30
-</span><span class="lnt"> 31
-</span><span class="lnt"> 32
-</span><span class="lnt"> 33
-</span><span class="lnt"> 34
-</span><span class="lnt"> 35
-</span><span class="lnt"> 36
-</span><span class="lnt"> 37
-</span><span class="lnt"> 38
-</span><span class="lnt"> 39
-</span><span class="lnt"> 40
-</span><span class="lnt"> 41
-</span><span class="lnt"> 42
-</span><span class="lnt"> 43
-</span><span class="lnt"> 44
-</span><span class="lnt"> 45
-</span><span class="lnt"> 46
-</span><span class="lnt"> 47
-</span><span class="lnt"> 48
-</span><span class="lnt"> 49
-</span><span class="lnt"> 50
-</span><span class="lnt"> 51
-</span><span class="lnt"> 52
-</span><span class="lnt"> 53
-</span><span class="lnt"> 54
-</span><span class="lnt"> 55
-</span><span class="lnt"> 56
-</span><span class="lnt"> 57
-</span><span class="lnt"> 58
-</span><span class="lnt"> 59
-</span><span class="lnt"> 60
-</span><span class="lnt"> 61
-</span><span class="lnt"> 62
-</span><span class="lnt"> 63
-</span><span class="lnt"> 64
-</span><span class="lnt"> 65
-</span><span class="lnt"> 66
-</span><span class="lnt"> 67
-</span><span class="lnt"> 68
-</span><span class="lnt"> 69
-</span><span class="lnt"> 70
-</span><span class="lnt"> 71
-</span><span class="lnt"> 72
-</span><span class="lnt"> 73
-</span><span class="lnt"> 74
-</span><span class="lnt"> 75
-</span><span class="lnt"> 76
-</span><span class="lnt"> 77
-</span><span class="lnt"> 78
-</span><span class="lnt"> 79
-</span><span class="lnt"> 80
-</span><span class="lnt"> 81
-</span><span class="lnt"> 82
-</span><span class="lnt"> 83
-</span><span class="lnt"> 84
-</span><span class="lnt"> 85
-</span><span class="lnt"> 86
-</span><span class="lnt"> 87
-</span><span class="lnt"> 88
-</span><span class="lnt"> 89
-</span><span class="lnt"> 90
-</span><span class="lnt"> 91
-</span><span class="lnt"> 92
-</span><span class="lnt"> 93
-</span><span class="lnt"> 94
-</span><span class="lnt"> 95
-</span><span class="lnt"> 96
-</span><span class="lnt"> 97
-</span><span class="lnt"> 98
-</span><span class="lnt"> 99
-</span><span class="lnt">100
-</span><span class="lnt">101
-</span><span class="lnt">102
-</span><span class="lnt">103
-</span><span class="lnt">104
-</span><span class="lnt">105
-</span><span class="lnt">106
-</span><span class="lnt">107
-</span><span class="lnt">108
-</span><span class="lnt">109
-</span><span class="lnt">110
-</span><span class="lnt">111
-</span><span class="lnt">112
-</span><span class="lnt">113
-</span><span class="lnt">114
-</span><span class="lnt">115
-</span><span class="lnt">116
-</span><span class="lnt">117
-</span><span class="lnt">118
-</span><span class="lnt">119
-</span><span class="lnt">120
-</span><span class="lnt">121
-</span><span class="lnt">122
-</span><span class="lnt">123
-</span><span class="lnt">124
-</span><span class="lnt">125
-</span><span class="lnt">126
-</span><span class="lnt">127
-</span><span class="lnt">128
-</span><span class="lnt">129
-</span><span class="lnt">130
-</span><span class="lnt">131
-</span><span class="lnt">132
-</span><span class="lnt">133
-</span><span class="lnt">134
-</span><span class="lnt">135
-</span><span class="lnt">136
-</span><span class="lnt">137
-</span><span class="lnt">138
-</span><span class="lnt">139
-</span><span class="lnt">140
-</span><span class="lnt">141
-</span><span class="lnt">142
-</span><span class="lnt">143
-</span><span class="lnt">144
-</span><span class="lnt">145
-</span><span class="lnt">146
-</span><span class="lnt">147
-</span><span class="lnt">148
-</span><span class="lnt">149
-</span><span class="lnt">150
-</span><span class="lnt">151
-</span><span class="lnt">152
-</span><span class="lnt">153
-</span><span class="lnt">154
-</span><span class="lnt">155
-</span><span class="lnt">156
-</span><span class="lnt">157
-</span><span class="lnt">158
-</span><span class="lnt">159
-</span><span class="lnt">160
-</span><span class="lnt">161
-</span><span class="lnt">162
-</span><span class="lnt">163
-</span><span class="lnt">164
-</span><span class="lnt">165
-</span><span class="lnt">166
-</span><span class="lnt">167
-</span><span class="lnt">168
-</span><span class="lnt">169
-</span><span class="lnt">170
-</span><span class="lnt">171
-</span><span class="lnt">172
-</span><span class="lnt">173
-</span><span class="lnt">174
-</span><span class="lnt">175
-</span><span class="lnt">176
-</span><span class="lnt">177
-</span><span class="lnt">178
-</span><span class="lnt">179
-</span><span class="lnt">180
-</span><span class="lnt">181
-</span><span class="lnt">182
-</span><span class="lnt">183
-</span><span class="lnt">184
-</span><span class="lnt">185
-</span><span class="lnt">186
-</span><span class="lnt">187
-</span><span class="lnt">188
-</span><span class="lnt">189
-</span><span class="lnt">190
-</span><span class="lnt">191
-</span><span class="lnt">192
-</span><span class="lnt">193
-</span><span class="lnt">194
-</span><span class="lnt">195
-</span><span class="lnt">196
-</span><span class="lnt">197
-</span><span class="lnt">198
-</span><span class="lnt">199
-</span><span class="lnt">200
-</span><span class="lnt">201
-</span><span class="lnt">202
-</span><span class="lnt">203
-</span><span class="lnt">204
-</span><span class="lnt">205
-</span><span class="lnt">206
-</span><span class="lnt">207
-</span><span class="lnt">208
-</span><span class="lnt">209
-</span><span class="lnt">210
-</span><span class="lnt">211
-</span><span class="lnt">212
-</span><span class="lnt">213
-</span><span class="lnt">214
-</span><span class="lnt">215
-</span><span class="lnt">216
-</span><span class="lnt">217
-</span><span class="lnt">218
-</span><span class="lnt">219
-</span><span class="lnt">220
-</span><span class="lnt">221
-</span><span class="lnt">222
-</span><span class="lnt">223
-</span><span class="lnt">224
-</span><span class="lnt">225
-</span><span class="lnt">226
-</span><span class="lnt">227
-</span><span class="lnt">228
-</span><span class="lnt">229
-</span><span class="lnt">230
-</span><span class="lnt">231
-</span><span class="lnt">232
-</span><span class="lnt">233
-</span><span class="lnt">234
-</span><span class="lnt">235
-</span><span class="lnt">236
-</span><span class="lnt">237
-</span><span class="lnt">238
-</span><span class="lnt">239
-</span><span class="lnt">240
-</span><span class="lnt">241
-</span><span class="lnt">242
-</span><span class="lnt">243
-</span><span class="lnt">244
-</span><span class="lnt">245
-</span><span class="lnt">246
-</span><span class="lnt">247
-</span><span class="lnt">248
-</span><span class="lnt">249
-</span><span class="lnt">250
-</span><span class="lnt">251
-</span><span class="lnt">252
-</span><span class="lnt">253
-</span><span class="lnt">254
-</span><span class="lnt">255
-</span><span class="lnt">256
-</span><span class="lnt">257
-</span><span class="lnt">258
-</span><span class="lnt">259
-</span><span class="lnt">260
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-sh" data-lang="sh"><span class="nv">flash</span><span class="o">=</span><span class="s2">&#34;0&#34;</span>
-<span class="nv">true</span><span class="o">=</span><span class="s2">&#34;1&#34;</span>
-<span class="nv">false</span><span class="o">=</span><span class="s2">&#34;0&#34;</span><span class="p">;</span>
-<span class="nv">disable</span><span class="o">=</span><span class="s2">&#34;0&#34;</span>
-<span class="nv">enable</span><span class="o">=</span><span class="s2">&#34;1&#34;</span>
-<span class="nv">configName</span><span class="o">=</span><span class="s2">&#34;scmonitor&#34;</span>
-printHelp<span class="o">(</span><span class="o">)</span><span class="o">{</span>
+</code></pre>
+<h3 id="代码">代码</h3>
+<pre><code class="language-sh">flash=&quot;0&quot;
+true=&quot;1&quot;
+false=&quot;0&quot;;
+disable=&quot;0&quot;
+enable=&quot;1&quot;
+configName=&quot;scmonitor&quot;
+printHelp(){
 	clear
-	<span class="nb">echo</span> <span class="s2">&#34;USAGE:&#34;</span>
-	<span class="nb">echo</span> <span class="s2">&#34;-g &lt;monitor type&gt; get current moitor enable status &#34;</span>
-	<span class="nb">echo</span> <span class="s2">&#34;-l view current all montoir list&#34;</span>
-	<span class="nb">echo</span> <span class="s2">&#34;-s &lt;monitorName&gt; &lt;monitorValue&gt; set monitor state&#34;</span>
-	<span class="nb">echo</span> <span class="s2">&#34;-a autoManage &#34;</span>
-	<span class="nb">echo</span> <span class="s2">&#34;-e enable cron&#34;</span>
-	<span class="nb">echo</span> <span class="s2">&#34;-d disable cron&#34;</span>
-	<span class="nb">echo</span> <span class="s2">&#34;add &lt;name&gt; &lt;enable&gt; &lt;pschkstr&gt; &lt;sevicename&gt; &lt;tmpfile&gt; &lt;mqttkey&gt; &lt;execcmd&gt; &lt;timeLimit&gt;&#34;</span>
-  <span class="nb">echo</span> <span class="s2">&#34;example:&#34;</span>
-	<span class="nb">echo</span> <span class="s2">&#34;	check -l&#34;</span>
-	<span class="nb">echo</span> <span class="s2">&#34;			plc&#34;</span>
-	<span class="nb">echo</span> <span class="s2">&#34;			pjlink&#34;</span>
-	<span class="nb">echo</span> <span class="s2">&#34;   check -g plc&#34;</span>
-	<span class="nb">echo</span> <span class="s2">&#34;			current monitor state:0&#34;</span>
-	<span class="nb">echo</span> <span class="s2">&#34;   check -s plc 0&#34;</span>
-<span class="o">}</span>
+	echo &quot;USAGE:&quot;
+	echo &quot;-g &lt;monitor type&gt; get current moitor enable status &quot;
+	echo &quot;-l view current all montoir list&quot;
+	echo &quot;-s &lt;monitorName&gt; &lt;monitorValue&gt; set monitor state&quot;
+	echo &quot;-a autoManage &quot;
+	echo &quot;-e enable cron&quot;
+	echo &quot;-d disable cron&quot;
+	echo &quot;add &lt;name&gt; &lt;enable&gt; &lt;pschkstr&gt; &lt;sevicename&gt; &lt;tmpfile&gt; &lt;mqttkey&gt; &lt;execcmd&gt; &lt;timeLimit&gt;&quot;
+  echo &quot;example:&quot;
+	echo &quot;	check -l&quot;
+	echo &quot;			plc&quot;
+	echo &quot;			pjlink&quot;
+	echo &quot;   check -g plc&quot;
+	echo &quot;			current monitor state:0&quot;
+	echo &quot;   check -s plc 0&quot;
+}
 
-<span class="c1">#检测线程是否存在</span>
-function_thread_check<span class="o">(</span><span class="o">)</span><span class="o">{</span>
-	<span class="c1">#count= ${ps |grep &#39;sc-serv plc&#39; | grep -v &#39;grep&#39; | wc -l}</span>
-	<span class="nv">count</span><span class="o">=</span><span class="k">$(</span> ps <span class="p">|</span> grep <span class="s2">&#34;</span><span class="nv">$*</span><span class="s2">&#34;</span> <span class="p">|</span> grep -v <span class="s1">&#39;grep&#39;</span> <span class="p">|</span> wc -l <span class="k">)</span>
-	<span class="k">if</span> <span class="o">[</span> <span class="nv">0</span> <span class="o">=</span><span class="o">=</span> <span class="nv">$count</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
-		<span class="nb">echo</span> <span class="nb">false</span>
-	<span class="k">else</span>
-		<span class="nb">echo</span> <span class="nb">true</span>
-	<span class="k">fi</span>
-<span class="o">}</span>
+#检测线程是否存在
+function_thread_check(){
+	#count= ${ps |grep 'sc-serv plc' | grep -v 'grep' | wc -l}
+	count=$( ps | grep &quot;$*&quot; | grep -v 'grep' | wc -l )
+	if [ 0 == $count ];then
+		echo false
+	else
+		echo true
+	fi
+}
 
-<span class="c1">#获取当前所有模块的名称</span>
-function_getMonitorList<span class="o">(</span><span class="o">)</span><span class="o">{</span>
-	<span class="nv">count</span><span class="o">=</span><span class="k">$(</span>uci get <span class="nv">$configName</span>.general.count<span class="k">)</span>
+#获取当前所有模块的名称
+function_getMonitorList(){
+	count=$(uci get $configName.general.count)
 
-	<span class="k">for</span> i in <span class="k">$(</span>seq <span class="m">0</span> <span class="nv">$count</span><span class="k">)</span><span class="p">;</span>
-	<span class="k">do</span>
-		<span class="nv">name</span><span class="o">=</span><span class="k">$(</span>uci get <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$i</span><span class="o">]</span>.name<span class="k">)</span>
-		<span class="nb">echo</span> <span class="nv">$name</span>
+	for i in $(seq 0 $count);
+	do
+		name=$(uci get $configName.@monitor[$i].name)
+		echo $name
 
-	<span class="k">done</span>
-<span class="o">}</span>
-<span class="c1">#获取状态</span>
-function_getMonitorStats<span class="o">(</span><span class="o">)</span><span class="o">{</span>
-    <span class="nv">count</span><span class="o">=</span><span class="k">$(</span>uci get <span class="nv">$configName</span>.general.count<span class="k">)</span>
+	done
+}
+#获取状态
+function_getMonitorStats(){
+    count=$(uci get $configName.general.count)
 
-    <span class="k">for</span> i in <span class="k">$(</span>seq <span class="m">0</span> <span class="nv">$count</span><span class="k">)</span><span class="p">;</span>
-    <span class="k">do</span>
-		<span class="nv">name</span><span class="o">=</span><span class="k">$(</span>uci get <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$i</span><span class="o">]</span>.name<span class="k">)</span>
-        <span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$name</span><span class="s2">&#34;</span> <span class="o">=</span><span class="o">=</span> <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-            <span class="nv">state</span><span class="o">=</span><span class="k">$(</span>uci get <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$i</span><span class="o">]</span>.enable<span class="k">)</span>
-            <span class="nb">echo</span> <span class="nv">$1</span> stats is <span class="nv">$state</span>
-        <span class="k">fi</span>
-    <span class="k">done</span>
-<span class="o">}</span>
-<span class="c1">#获取当前的时间差</span>
-function_getTimeCompare<span class="o">(</span><span class="o">)</span><span class="o">{</span>
-	<span class="nv">currTime</span><span class="o">=</span><span class="k">$(</span> date +%s<span class="k">)</span>
-	<span class="nv">lastTime</span><span class="o">=</span><span class="nv">$1</span>
-	<span class="c1">#tmpTime= $(&#34;$currTime - $lastTime&#34;)</span>
+    for i in $(seq 0 $count);
+    do
+		name=$(uci get $configName.@monitor[$i].name)
+        if [ &quot;$name&quot; == &quot;$1&quot; ]; then
+            state=$(uci get $configName.@monitor[$i].enable)
+            echo $1 stats is $state
+        fi
+    done
+}
+#获取当前的时间差
+function_getTimeCompare(){
+	currTime=$( date +%s)
+	lastTime=$1
+	#tmpTime= $(&quot;$currTime - $lastTime&quot;)
 
-	<span class="nb">echo</span> <span class="k">$((</span><span class="nv">$currTime</span> <span class="o">-</span> <span class="nv">$lastTime</span><span class="k">))</span>
-<span class="o">}</span>
+	echo $(($currTime - $lastTime))
+}
 
-function_setMonitorState<span class="o">(</span><span class="o">)</span><span class="o">{</span>
-	<span class="nv">count</span><span class="o">=</span><span class="k">$(</span>uci get <span class="nv">$configName</span>.general.count<span class="k">)</span>
-	<span class="k">for</span> i in <span class="k">$(</span>seq <span class="m">0</span> <span class="nv">$count</span><span class="k">)</span><span class="p">;</span>
-	<span class="k">do</span>
-		<span class="nv">name</span><span class="o">=</span><span class="k">$(</span>uci get <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$i</span><span class="o">]</span>.name<span class="k">)</span>
-        <span class="nv">old_sate</span><span class="o">=</span><span class="k">$(</span>uci get <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$i</span><span class="o">]</span>.enable<span class="k">)</span>
-		<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$name</span><span class="s2">&#34;</span> <span class="o">=</span><span class="o">=</span> <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-			<span class="nv">state</span><span class="o">=</span><span class="k">$(</span>uci <span class="nb">set</span> <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$i</span><span class="o">]</span>.enable<span class="o">=</span><span class="nv">$2</span><span class="k">)</span>
-            <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2"> set success</span><span class="s2">&#34;</span>
-		<span class="k">fi</span>
-	<span class="k">done</span>
-<span class="o">}</span>
+function_setMonitorState(){
+	count=$(uci get $configName.general.count)
+	for i in $(seq 0 $count);
+	do
+		name=$(uci get $configName.@monitor[$i].name)
+        old_sate=$(uci get $configName.@monitor[$i].enable)
+		if [ &quot;$name&quot; == &quot;$1&quot; ]; then
+			state=$(uci set $configName.@monitor[$i].enable=$2)
+            echo &quot;$1 set success&quot;
+		fi
+	done
+}
 
-<span class="c1"># 自动化处理流程</span>
-function_autoManage<span class="o">(</span><span class="o">)</span><span class="o">{</span>
-	<span class="nv">count</span><span class="o">=</span><span class="k">$(</span>uci get <span class="nv">$configName</span>.general.count<span class="k">)</span>
-	<span class="nv">monitorState</span><span class="o">=</span><span class="k">$(</span>uci get <span class="nv">$configName</span>.general.enable<span class="k">)</span>
+# 自动化处理流程
+function_autoManage(){
+	count=$(uci get $configName.general.count)
+	monitorState=$(uci get $configName.general.enable)
 
-	<span class="k">if</span> <span class="o">[</span> <span class="nv">$monitorState</span> <span class="o">=</span><span class="o">=</span> <span class="s2">&#34;0&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-		<span class="nb">echo</span> <span class="s2">&#34;current server monitor disable&#34;</span>
-		<span class="k">return</span> 
-	<span class="k">fi</span>
+	if [ $monitorState == &quot;0&quot; ]; then
+		echo &quot;current server monitor disable&quot;
+		return 
+	fi
 
-	<span class="k">for</span> i in <span class="k">$(</span>seq <span class="m">0</span> <span class="nv">$count</span><span class="k">)</span><span class="p">;</span>
-	<span class="k">do</span>
-		<span class="nv">name</span><span class="o">=</span><span class="k">$(</span>uci get <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$i</span><span class="o">]</span>.name<span class="k">)</span>
-        <span class="nv">psChkstr</span><span class="o">=</span><span class="k">$(</span>uci get <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$i</span><span class="o">]</span>.pschkstr<span class="k">)</span>
-		<span class="nv">tmpfile</span><span class="o">=</span><span class="k">$(</span>uci get <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$i</span><span class="o">]</span>.tmpfile<span class="k">)</span>
-        <span class="nv">type</span><span class="o">=</span><span class="k">$(</span>uci get <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$i</span><span class="o">]</span>.type<span class="k">)</span>
-		<span class="nv">result</span><span class="o">=</span><span class="k">$(</span>function_thread_check <span class="nv">$psChkstr</span><span class="k">)</span>
-		<span class="nv">MonitorStats</span><span class="o">=</span><span class="k">$(</span>uci get <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$i</span><span class="o">]</span>.enable<span class="k">)</span>
+	for i in $(seq 0 $count);
+	do
+		name=$(uci get $configName.@monitor[$i].name)
+        psChkstr=$(uci get $configName.@monitor[$i].pschkstr)
+		tmpfile=$(uci get $configName.@monitor[$i].tmpfile)
+        type=$(uci get $configName.@monitor[$i].type)
+		result=$(function_thread_check $psChkstr)
+		MonitorStats=$(uci get $configName.@monitor[$i].enable)
 
-		<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$MonitorStats</span><span class="s2">&#34;</span> <span class="o">=</span><span class="o">=</span> <span class="s2">&#34;</span><span class="nv">$disable</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span> 
-			<span class="nb">echo</span>  <span class="nv">$name</span> current Current status is disable 
-			<span class="k">continue</span>	
-		<span class="k">fi</span>
+		if [ &quot;$MonitorStats&quot; == &quot;$disable&quot; ]; then 
+			echo  $name current Current status is disable 
+			continue	
+		fi
 
-		<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$result</span><span class="s2">&#34;</span> <span class="o">=</span><span class="o">=</span> <span class="s2">&#34;false&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-      <span class="nb">echo</span> <span class="s2">&#34;Services have been shut down, which is restarting&#34;</span>
-			<span class="c1">#execCmd=$(uci get sc-monitor.@monitor[$i].execcmd)</span>
-			<span class="k">$(</span>/etc/init.d/<span class="nv">$name</span> start<span class="k">)</span>
-		<span class="k">else</span>
-      <span class="k">if</span> <span class="o">[</span> <span class="nv">$type</span> <span class="o">=</span><span class="o">=</span> <span class="s2">&#34;application&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span> <span class="c1">#application不做文件检测</span>
-          <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$name</span><span class="s2"> Operating normally</span><span class="s2">&#34;</span>
-          <span class="k">continue</span>
-      <span class="k">fi</span>
+		if [ &quot;$result&quot; == &quot;false&quot; ]; then
+      echo &quot;Services have been shut down, which is restarting&quot;
+			#execCmd=$(uci get sc-monitor.@monitor[$i].execcmd)
+			$(/etc/init.d/$name start)
+		else
+      if [ $type == &quot;application&quot; ]; then #application不做文件检测
+          echo &quot;$name Operating normally&quot;
+          continue
+      fi
 
-			<span class="k">if</span> <span class="o">[</span> ! -e <span class="s2">&#34;</span><span class="nv">$tmpfile</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-				<span class="k">$(</span>/etc/init.d/<span class="nv">$name</span> stop<span class="k">)</span>
-				<span class="k">$(</span>/etc/init.d/<span class="nv">$name</span> start<span class="k">)</span>
-				<span class="nb">echo</span> <span class="s2">&#34;</span><span class="s2">restart </span><span class="nv">$name</span><span class="s2"> server</span><span class="s2">&#34;</span>
-                <span class="k">continue</span>
-			<span class="k">else</span>
-				<span class="nv">lastTime</span><span class="o">=</span><span class="k">$(</span>cat <span class="nv">$tmpfile</span><span class="k">)</span>
-				<span class="nv">timeLimit</span><span class="o">=</span><span class="k">$(</span>uci get <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$i</span><span class="o">]</span>.timeLimit<span class="k">)</span>
-				<span class="nv">result</span><span class="o">=</span><span class="k">$(</span>function_getTimeCompare <span class="nv">$lastTime</span> <span class="k">)</span>
+			if [ ! -e &quot;$tmpfile&quot; ]; then
+				$(/etc/init.d/$name stop)
+				$(/etc/init.d/$name start)
+				echo &quot;restart $name server&quot;
+                continue
+			else
+				lastTime=$(cat $tmpfile)
+				timeLimit=$(uci get $configName.@monitor[$i].timeLimit)
+				result=$(function_getTimeCompare $lastTime )
 
-				<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$result</span><span class="s2">&#34;</span> -gt <span class="s2">&#34;</span><span class="nv">$timeLimit</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>  <span class="c1">#如果当前返回的值大于允许值</span>
-					<span class="k">$(</span>rm -rf <span class="nv">$tmpfile</span><span class="k">)</span>
-					<span class="k">$(</span>/etc/init.d/<span class="nv">$name</span> stop<span class="k">)</span>
-					<span class="k">$(</span>/etc/init.d/<span class="nv">$name</span> start<span class="k">)</span>
-				<span class="k">fi</span>
+				if [ &quot;$result&quot; -gt &quot;$timeLimit&quot; ]; then  #如果当前返回的值大于允许值
+					$(rm -rf $tmpfile)
+					$(/etc/init.d/$name stop)
+					$(/etc/init.d/$name start)
+				fi
 
-				<span class="nb">echo</span> <span class="nv">$result</span> <span class="nv">$timeLimit</span>
-			<span class="k">fi</span>
+				echo $result $timeLimit
+			fi
 
-		<span class="k">fi</span>
-        <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$name</span><span class="s2"> Operating normally</span><span class="s2">&#34;</span>
-	<span class="k">done</span>
-<span class="o">}</span>
+		fi
+        echo &quot;$name Operating normally&quot;
+	done
+}
 
-<span class="c1">#移除服务</span>
-function_removeMonitor<span class="o">(</span><span class="o">)</span><span class="o">{</span>
-	<span class="nv">MonitorName</span><span class="o">=</span><span class="nv">$1</span>
-	<span class="nv">tmp</span><span class="o">=</span><span class="k">$(</span>uci get <span class="nv">$configName</span>.general.count<span class="k">)</span>
-	<span class="k">for</span> i in <span class="k">$(</span>seq <span class="m">0</span> <span class="nv">$tmp</span><span class="k">)</span><span class="p">;</span>
-	<span class="k">do</span>
-		<span class="nv">name</span><span class="o">=</span><span class="k">$(</span>uci get <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$i</span><span class="o">]</span>.name<span class="k">)</span>
-		<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$name</span><span class="s2">&#34;</span> <span class="o">=</span><span class="o">=</span> <span class="s2">&#34;</span><span class="nv">$MonitorName</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-			<span class="nv">count</span><span class="o">=</span><span class="k">$((</span>  <span class="nv">$tmp</span> <span class="o">-</span> <span class="m">1</span> <span class="k">))</span>
-			<span class="k">$(</span>uci delete <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$i</span><span class="o">]</span><span class="k">)</span>
-			<span class="k">$(</span>uci <span class="nb">set</span> <span class="nv">$configName</span>.general.count<span class="o">=</span><span class="nv">$count</span><span class="k">)</span>
-			<span class="k">$(</span>uci commit <span class="nv">$configName</span><span class="k">)</span>
-		<span class="k">fi</span>
-	<span class="k">done</span>
-<span class="o">}</span>
+#移除服务
+function_removeMonitor(){
+	MonitorName=$1
+	tmp=$(uci get $configName.general.count)
+	for i in $(seq 0 $tmp);
+	do
+		name=$(uci get $configName.@monitor[$i].name)
+		if [ &quot;$name&quot; == &quot;$MonitorName&quot; ]; then
+			count=$((  $tmp - 1 ))
+			$(uci delete $configName.@monitor[$i])
+			$(uci set $configName.general.count=$count)
+			$(uci commit $configName)
+		fi
+	done
+}
 
-function_EnableCron<span class="o">(</span><span class="o">)</span><span class="o">{</span>
-	<span class="k">$(</span>uci <span class="nb">set</span> <span class="nv">$configName</span>.general.enable<span class="o">=</span>1<span class="k">)</span>
-	<span class="k">$(</span>uci commit <span class="nv">$configName</span><span class="k">)</span>
-<span class="o">}</span>
+function_EnableCron(){
+	$(uci set $configName.general.enable=1)
+	$(uci commit $configName)
+}
 
-function_DisableCron<span class="o">(</span><span class="o">)</span><span class="o">{</span>
-	<span class="k">$(</span>uci <span class="nb">set</span> <span class="nv">$configName</span>.general.enable<span class="o">=</span>1<span class="k">)</span>
-	<span class="k">$(</span>uci commit <span class="nv">$configName</span><span class="k">)</span>
-<span class="o">}</span>
+function_DisableCron(){
+	$(uci set $configName.general.enable=1)
+	$(uci commit $configName)
+}
 
-<span class="o">[</span> <span class="s2">&#34;</span><span class="k">$(</span>cat /proc/uptime <span class="p">|</span> awk -F. <span class="s1">&#39;{print $1}&#39;</span><span class="k">)</span><span class="s2">&#34;</span> -gt <span class="m">300</span> <span class="o">]</span> <span class="o">||</span> <span class="nb">exit</span> <span class="m">0</span>
+[ &quot;$(cat /proc/uptime | awk -F. '{print $1}')&quot; -gt 300 ] || exit 0
 
-<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$#</span><span class="s2">&#34;</span> -eq <span class="m">0</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+if [ &quot;$#&quot; -eq 0 ]; then
 	printHelp
-	<span class="nb">exit</span> <span class="m">1</span>
-<span class="k">fi</span>
+	exit 1
+fi
 
-<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="o">=</span><span class="o">=</span> <span class="s2">&#34;-s&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-	<span class="k">if</span> <span class="o">[</span>  <span class="s2">&#34;</span><span class="nv">$2</span><span class="s2">&#34;</span> <span class="o">=</span><span class="o">=</span> <span class="s2">&#34;&#34;</span> <span class="o">]</span> <span class="o">||</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$3</span><span class="s2">&#34;</span> <span class="o">=</span><span class="o">=</span> <span class="s2">&#34;&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-		<span class="nb">exit</span> <span class="m">1</span>
-	<span class="k">fi</span>
-	function_setMonitorState <span class="nv">$2</span> <span class="nv">$3</span>
-	<span class="nb">exit</span> <span class="m">1</span>
+if [ &quot;$1&quot; == &quot;-s&quot; ]; then
+	if [  &quot;$2&quot; == &quot;&quot; ] || [ &quot;$3&quot; == &quot;&quot; ]; then
+		exit 1
+	fi
+	function_setMonitorState $2 $3
+	exit 1
 
-<span class="k">fi</span>
+fi
 
-<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$1</span><span class="s2">&#34;</span> <span class="o">=</span><span class="o">=</span> <span class="s2">&#34;add&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-	<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$2</span><span class="s2">&#34;</span> <span class="o">=</span><span class="o">=</span> <span class="s2">&#34;&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-		<span class="nb">echo</span> <span class="s2">&#34;plese input type&#34;</span>
-		<span class="nb">exit</span> <span class="m">1</span>
-	<span class="k">fi</span>
-	<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$3</span><span class="s2">&#34;</span> <span class="o">=</span><span class="o">=</span> <span class="s2">&#34;&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-		<span class="nb">echo</span> <span class="s2">&#34;plese input eanbled&#34;</span>
-		<span class="nb">exit</span> <span class="m">1</span>
-	<span class="k">fi</span>
+if [ &quot;$1&quot; == &quot;add&quot; ]; then
+	if [ &quot;$2&quot; == &quot;&quot; ]; then
+		echo &quot;plese input type&quot;
+		exit 1
+	fi
+	if [ &quot;$3&quot; == &quot;&quot; ]; then
+		echo &quot;plese input eanbled&quot;
+		exit 1
+	fi
 
-	<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$4</span><span class="s2">&#34;</span> <span class="o">=</span><span class="o">=</span> <span class="s2">&#34;&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-		<span class="nb">echo</span> <span class="s2">&#34;plese input pschkstr&#34;</span>
-		<span class="nb">exit</span> <span class="m">1</span>
-	<span class="k">fi</span>
-	<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$5</span><span class="s2">&#34;</span> <span class="o">=</span><span class="o">=</span> <span class="s2">&#34;&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-		<span class="nb">echo</span> <span class="s2">&#34;plese input sevicename &#34;</span>
-		<span class="nb">exit</span> <span class="m">1</span>
-	<span class="k">fi</span>
-	<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$6</span><span class="s2">&#34;</span> <span class="o">=</span><span class="o">=</span> <span class="s2">&#34;&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-		<span class="nb">echo</span> <span class="s2">&#34;plese input tmpfile&#34;</span>
-		<span class="nb">exit</span> <span class="m">1</span>
-	<span class="k">fi</span>
-	<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$7</span><span class="s2">&#34;</span> <span class="o">=</span><span class="o">=</span> <span class="s2">&#34;&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-		<span class="nb">echo</span> <span class="s2">&#34;plese input mqttkey&#34;</span>
-		<span class="nb">exit</span> <span class="m">1</span>
-	<span class="k">fi</span>
-	<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$8</span><span class="s2">&#34;</span> <span class="o">=</span><span class="o">=</span> <span class="s2">&#34;&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-		<span class="nb">echo</span> <span class="s2">&#34;plese input execcmd&#34;</span>
-		<span class="nb">exit</span> <span class="m">1</span>
-	<span class="k">fi</span>
-	<span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$9</span><span class="s2">&#34;</span> <span class="o">=</span><span class="o">=</span> <span class="s2">&#34;&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-		<span class="nb">echo</span> <span class="s2">&#34;plese input timeLimit&#34;</span>
-		<span class="nb">exit</span> <span class="m">1</span>
-	<span class="k">fi</span>
-	<span class="nv">tmp</span><span class="o">=</span><span class="k">$(</span>uci get <span class="nv">$configName</span>.general.count<span class="k">)</span>
-	<span class="c1">#$count=$(( $count + 1 ))</span>
-	<span class="nv">count</span><span class="o">=</span><span class="k">$((</span>  <span class="nv">$tmp</span> <span class="o">+</span> <span class="m">1</span> <span class="k">))</span>
+	if [ &quot;$4&quot; == &quot;&quot; ]; then
+		echo &quot;plese input pschkstr&quot;
+		exit 1
+	fi
+	if [ &quot;$5&quot; == &quot;&quot; ]; then
+		echo &quot;plese input sevicename &quot;
+		exit 1
+	fi
+	if [ &quot;$6&quot; == &quot;&quot; ]; then
+		echo &quot;plese input tmpfile&quot;
+		exit 1
+	fi
+	if [ &quot;$7&quot; == &quot;&quot; ]; then
+		echo &quot;plese input mqttkey&quot;
+		exit 1
+	fi
+	if [ &quot;$8&quot; == &quot;&quot; ]; then
+		echo &quot;plese input execcmd&quot;
+		exit 1
+	fi
+	if [ &quot;$9&quot; == &quot;&quot; ]; then
+		echo &quot;plese input timeLimit&quot;
+		exit 1
+	fi
+	tmp=$(uci get $configName.general.count)
+	#$count=$(( $count + 1 ))
+	count=$((  $tmp + 1 ))
 
-	<span class="k">$(</span>uci add <span class="nv">$configName</span> monitor<span class="k">)</span>
-	<span class="k">$(</span>uci add_list <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$count</span><span class="o">]</span>.name<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$2</span><span class="s2">&#34;</span><span class="k">)</span>
-	<span class="k">$(</span>uci add_list <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$count</span><span class="o">]</span>.enable<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$3</span><span class="s2">&#34;</span><span class="k">)</span>
-	<span class="k">$(</span>uci add_list <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$count</span><span class="o">]</span>.pschkstr<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$4</span><span class="s2">&#34;</span><span class="k">)</span>
-	<span class="k">$(</span>uci add_list <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$count</span><span class="o">]</span>.servicename<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$5</span><span class="s2">&#34;</span><span class="k">)</span>
-	<span class="k">$(</span>uci add_list <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$count</span><span class="o">]</span>.tmpfile<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$6</span><span class="s2">&#34;</span><span class="k">)</span>
-	<span class="k">$(</span>uci add_list <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$count</span><span class="o">]</span>.mqttkey<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$7</span><span class="s2">&#34;</span><span class="k">)</span>
-	<span class="k">$(</span>uci add_list <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$count</span><span class="o">]</span>.execcmd<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$8</span><span class="s2">&#34;</span><span class="k">)</span>
-	<span class="k">$(</span>uci add_list <span class="nv">$configName</span>.@monitor<span class="o">[</span><span class="nv">$count</span><span class="o">]</span>.timeLimit<span class="o">=</span><span class="s2">&#34;</span><span class="nv">$9</span><span class="s2">&#34;</span><span class="k">)</span>
-	<span class="k">$(</span>uci <span class="nb">set</span> <span class="nv">$configName</span>.general.count<span class="o">=</span><span class="nv">$count</span><span class="k">)</span>
-	<span class="k">$(</span>uci commit <span class="nv">$configName</span><span class="k">)</span>
-	<span class="nb">exit</span> <span class="m">1</span>
-<span class="k">fi</span>
+	$(uci add $configName monitor)
+	$(uci add_list $configName.@monitor[$count].name=&quot;$2&quot;)
+	$(uci add_list $configName.@monitor[$count].enable=&quot;$3&quot;)
+	$(uci add_list $configName.@monitor[$count].pschkstr=&quot;$4&quot;)
+	$(uci add_list $configName.@monitor[$count].servicename=&quot;$5&quot;)
+	$(uci add_list $configName.@monitor[$count].tmpfile=&quot;$6&quot;)
+	$(uci add_list $configName.@monitor[$count].mqttkey=&quot;$7&quot;)
+	$(uci add_list $configName.@monitor[$count].execcmd=&quot;$8&quot;)
+	$(uci add_list $configName.@monitor[$count].timeLimit=&quot;$9&quot;)
+	$(uci set $configName.general.count=$count)
+	$(uci commit $configName)
+	exit 1
+fi
 
-<span class="k">while</span> <span class="nb">getopts</span> g:s:lear:d opt
-<span class="k">do</span>
-	<span class="k">case</span> <span class="s2">&#34;</span><span class="nv">$opt</span><span class="s2">&#34;</span> in
-		g<span class="o">)</span>
-		function_getMonitorStats <span class="nv">$OPTARG</span>
-		<span class="p">;</span><span class="p">;</span>
-		e<span class="o">)</span>
+while getopts g:s:lear:d opt
+do
+	case &quot;$opt&quot; in
+		g)
+		function_getMonitorStats $OPTARG
+		;;
+		e)
 		function_EnableCron
-		<span class="p">;</span><span class="p">;</span>
-		d<span class="o">)</span>	function_DisableCron
-		<span class="p">;</span><span class="p">;</span>
-		l<span class="o">)</span>
+		;;
+		d)	function_DisableCron
+		;;
+		l)
 		function_getMonitorList
-		<span class="p">;</span><span class="p">;</span>
-		r<span class="o">)</span>
-		function_removeMonitor <span class="nv">$OPTARG</span>
-		<span class="p">;</span><span class="p">;</span>
-		a<span class="o">)</span>
+		;;
+		r)
+		function_removeMonitor $OPTARG
+		;;
+		a)
 		function_autoManage
-		<span class="p">;</span><span class="p">;</span>
-		?<span class="o">)</span>
+		;;
+		?)
 		clear
-		printHelp <span class="p">;</span><span class="p">;</span>
-	<span class="k">esac</span>
-<span class="k">done</span>
+		printHelp ;;
+	esac
+done
 
-</code></pre></td></tr></table>
-</div>
-</div>
+</code></pre>
     </div>
 
     <div class="post-copyright">
@@ -770,6 +476,21 @@ function_DisableCron<span class="o">(</span><span class="o">)</span><span class=
         
 
   
+  <div id="vcomments"></div>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: '1QhU05cQQQjIVDFiUFqOrjmB-gzGzoHsz',
+        appKey: '7I7EH0szenFgd1vjnxwFUPFp',
+        notify:  false ,
+        verify:  false ,
+        avatar:'mm',
+        placeholder: '说点什么吧...',
+        visitor:  false 
+    });
+  </script>
 
   
 

@@ -19,15 +19,9 @@
       <guid>http://blog.54wcs.com/post/react-native-piliwy%E9%9B%86%E6%88%90/</guid>
       <description>&lt;h1 id=&#34;react-native-pili集成指南&#34;&gt;react-native-pili集成指南&lt;/h1&gt;
 &lt;p&gt;为了今天的演习我们需要新建一个名为live的项目&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;js react-native init live
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;进入项目目录，调用下面的命令安装native-react-native插件&lt;/p&gt;</description>
+&lt;pre&gt;&lt;code&gt;js react-native init live
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;进入项目目录，调用下面的命令安装native-react-native插件&lt;/p&gt;</description>
     </item>
     
   </channel>

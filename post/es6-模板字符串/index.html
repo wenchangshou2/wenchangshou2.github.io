@@ -49,7 +49,7 @@
 <meta itemprop="description" content="es6 新的特殊支持嵌入表达式，自动会处于``内所有的字符串。">
 <meta itemprop="datePublished" content="2020-02-11T14:11:28&#43;08:00" />
 <meta itemprop="dateModified" content="2020-02-11T14:11:28&#43;08:00" />
-<meta itemprop="wordCount" content="491">
+<meta itemprop="wordCount" content="416">
 
 
 
@@ -127,7 +127,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-02-11 </span>
         
-          <span class="more-meta"> 约 491 字 </span>
+          <span class="more-meta"> 约 416 字 </span>
           <span class="more-meta"> 预计阅读 1 分钟 </span>
         
       </div>
@@ -153,164 +153,76 @@
     <div class="post-content">
       <p>es6 新的特殊支持嵌入表达式，自动会处于``内所有的字符串。</p>
 <h3 id="多行字符串">多行字符串</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="err">\</span><span class="err">\</span><span class="nx">传统的多行字符串</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;string line1 \n\
-</span><span class="s1">string line2&#39;</span><span class="p">)</span>
-<span class="err">\</span><span class="err">\</span><span class="nx">es6多行字符串</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="sb">string line
-</span><span class="sb">string lin2</span><span class="sb">`</span><span class="p">)</span><span class="p">;</span>
+<pre><code class="language-js">\\传统的多行字符串
+console.log('string line1 \n\
+string line2')
+\\es6多行字符串
+console.log(`string line
+string lin2`);
 
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="表达式插入">表达式插入</h3>
+</code></pre>
+<h3 id="表达式插入">表达式插入</h3>
 <p>传统的方式采用的是字符串拼接的方式进行，通过+号进行拼接</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// 传统方式
-</span><span class="c1"></span> <span class="kd">let</span> <span class="nx">x</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
- <span class="kd">let</span> <span class="nx">y</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
- <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;x=&#39;</span><span class="o">+</span><span class="p">(</span><span class="nx">a</span><span class="o">+</span><span class="nx">b</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;;y=&#39;</span><span class="o">+</span><span class="p">(</span><span class="nx">a</span><span class="o">*</span><span class="nx">b</span><span class="p">)</span><span class="p">)</span>
- <span class="c1">//es6 语法
-</span><span class="c1"></span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;x=&#39;</span><span class="o">+</span><span class="p">(</span><span class="nx">a</span><span class="o">+</span><span class="nx">b</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;;y=&#39;</span><span class="o">+</span><span class="p">(</span><span class="nx">a</span><span class="o">*</span><span class="nx">b</span><span class="p">)</span><span class="p">)</span><span class="p">;</span>
- <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`</span><span class="sb">x=</span><span class="si">${</span><span class="nx">x</span><span class="o">+</span><span class="nx">y</span><span class="si">}</span><span class="sb">,y=</span><span class="si">${</span><span class="nx">x</span><span class="o">*</span><span class="nx">y</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span><span class="p">;</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="带标签的模板字符串">带标签的模板字符串</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">//strings 存放所有的字符串字面的数组
-</span><span class="c1"></span><span class="c1">//values 存放第一个数组紧随的参数
-</span><span class="c1"></span> <span class="kd">function</span> <span class="nx">tag3</span><span class="p">(</span><span class="nx">strings</span><span class="p">,</span><span class="p">...</span><span class="nx">values</span><span class="p">)</span><span class="p">{</span>
- 					  <span class="kd">let</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
-					  <span class="kd">let</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">strings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span><span class="p">;</span><span class="c1">//hello
-</span><span class="c1"></span>                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">strings</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span><span class="p">;</span><span class="c1">//world
-</span><span class="c1"></span>                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">strings</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="p">)</span><span class="p">;</span><span class="c1">//
-</span><span class="c1"></span>                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span><span class="p">;</span><span class="c1">//15
-</span><span class="c1"></span>                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span><span class="p">;</span><span class="c1">//50
-</span><span class="c1"></span>                <span class="k">return</span> <span class="s2">&#34;hello world&#34;</span>
- <span class="p">}</span>
-  <span class="nx">tag3</span> <span class="sb">`</span><span class="sb">Hello </span><span class="si">${</span><span class="nx">a</span><span class="o">+</span><span class="nx">b</span><span class="si">}</span><span class="sb"> world </span><span class="si">${</span> <span class="nx">a</span><span class="o">*</span><span class="nx">b</span> <span class="si">}</span><span class="sb">`</span><span class="p">;</span>
-  <span class="c1">//out:hello world
-</span></code></pre></td></tr></table>
-</div>
-</div><p>通过传入的参数来返回一个函数</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">template</span><span class="p">(</span><span class="nx">strings</span><span class="p">,</span><span class="p">...</span><span class="nx">keys</span><span class="p">)</span><span class="p">{</span>
-<span class="k">return</span> <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="p">...</span><span class="nx">values</span><span class="p">)</span><span class="p">{</span>
-		<span class="kd">var</span> <span class="nx">dict</span><span class="o">=</span><span class="nx">values</span><span class="p">[</span><span class="nx">values</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">||</span><span class="p">{</span><span class="p">}</span><span class="p">;</span>  <span class="c1">//A                 
-</span><span class="c1"></span>		<span class="kd">var</span> <span class="nx">result</span><span class="o">=</span><span class="p">[</span><span class="nx">strings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">]</span><span class="p">;</span>
-		<span class="nx">keys</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span><span class="nx">i</span><span class="p">)</span><span class="p">{</span>
-		<span class="kd">var</span> <span class="nx">value</span><span class="o">=</span><span class="nb">Number</span><span class="p">.</span><span class="nx">isInteger</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span><span class="o">?</span><span class="nx">values</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span><span class="o">:</span><span class="nx">dict</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span><span class="p">;</span>              <span class="nx">result</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span><span class="nx">strings</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="p">)</span><span class="p">;</span>
-<span class="p">}</span><span class="p">)</span><span class="p">;</span>
-<span class="k">return</span> <span class="nx">result</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="p">;</span>
-<span class="p">}</span><span class="p">)</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="kd">var</span> <span class="nx">t1Closure</span><span class="o">=</span><span class="nx">template</span> <span class="sb">`</span><span class="si">${</span><span class="mi">0</span><span class="si">}</span><span class="si">${</span><span class="mi">1</span><span class="si">}</span><span class="si">${</span><span class="mi">0</span><span class="si">}</span><span class="sb">!</span><span class="sb">`</span><span class="p">;</span><span class="c1">//返回的是一个函数
-</span><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">t1Closure</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">)</span><span class="p">)</span><span class="p">;</span><span class="c1">//Y A Y
-</span></code></pre></td></tr></table>
-</div>
-</div><h3 id="不转义字符串">不转义字符串</h3>
+<pre><code class="language-js">// 传统方式
+ let x=1;
+ let y=2;
+ console.log('x='+(a+b)+';y='+(a*b))
+ //es6 语法
+ console.log('x='+(a+b)+';y='+(a*b));
+ console.log(`x=${x+y},y=${x*y}`);
+</code></pre>
+<h3 id="带标签的模板字符串">带标签的模板字符串</h3>
+<pre><code class="language-js">//strings 存放所有的字符串字面的数组
+//values 存放第一个数组紧随的参数
+ function tag3(strings,...values){
+ 					  let a = 5;
+					  let b = 10;
+                console.log(strings[0]);//hello
+                console.log(strings[1]);//world
+                console.log(strings[2]);//
+                console.log(values[0]);//15
+                console.log(values[1]);//50
+                return &quot;hello world&quot;
+ }
+  tag3 `Hello ${a+b} world ${ a*b }`;
+  //out:hello world
+</code></pre>
+<p>通过传入的参数来返回一个函数</p>
+<pre><code class="language-js">function template(strings,...keys){
+return (function(...values){
+		var dict=values[values.length-1]||{};  //A                 
+		var result=[strings[0]];
+		keys.forEach(function(key,i){
+		var value=Number.isInteger(key)?values[key]:dict[key];              result.push(value,strings[i+1]);
+});
+return result.join(' ');
+});
+}
+var t1Closure=template `${0}${1}${0}!`;//返回的是一个函数
+console.log(t1Closure('Y','A'));//Y A Y
+</code></pre>
+<h3 id="不转义字符串">不转义字符串</h3>
 <p>在String.raw()输出不转义的字符串,输出原始的字符串</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">tag</span><span class="p">(</span><span class="nx">strings</span><span class="p">,</span> <span class="p">...</span><span class="nx">values</span><span class="p">)</span> <span class="p">{</span>
-<span class="cm">/*
-</span><span class="cm">	倘若不采用raw输出的会直接进行换行 
-</span><span class="cm">*/</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nx">raw</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span><span class="p">;</span> 
-  <span class="c1">// &#34;string text line 1 \n string text line 2&#34;
-</span><span class="c1"></span><span class="p">}</span>
+<pre><code class="language-js">function tag(strings, ...values) {
+/*
+	倘若不采用raw输出的会直接进行换行 
+*/
+  console.log(strings.raw[0]); 
+  // &quot;string text line 1 \n string text line 2&quot;
+}
 
-<span class="nx">tag</span><span class="sb">`</span><span class="sb">string text line 1 </span><span class="err">\</span><span class="sb">n string text line 2</span><span class="sb">`</span><span class="p">;</span>
-</code></pre></td></tr></table>
-</div>
-</div><h4 id="实例">实例</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">//判断是否具有权限，倘若没有抛出一个异常
-</span><span class="c1"></span><span class="c1">//${user.name}和${action}是两个点占位号，会自动将值带入到该字符串
-</span><span class="c1"></span><span class="kd">function</span> <span class="nx">authorize</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="nx">action</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">user</span><span class="p">.</span><span class="nx">hasPrivilege</span><span class="p">(</span><span class="nx">action</span><span class="p">)</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span>
-      <span class="sb">`</span><span class="sb">用户 </span><span class="si">${</span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb"> 未被授权执行 </span><span class="si">${</span><span class="nx">action</span><span class="si">}</span><span class="sb"> 操作。</span><span class="sb">`</span><span class="p">)</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div>
+tag`string text line 1 \n string text line 2`;
+</code></pre>
+<h4 id="实例">实例</h4>
+<pre><code class="language-js">//判断是否具有权限，倘若没有抛出一个异常
+//${user.name}和${action}是两个点占位号，会自动将值带入到该字符串
+function authorize(user, action) {
+  if (!user.hasPrivilege(action)) {
+    throw new Error(
+      `用户 ${user.name} 未被授权执行 ${action} 操作。`);
+  }
+}
+</code></pre>
     </div>
 
     <div class="post-copyright">
@@ -348,6 +260,21 @@
         
 
   
+  <div id="vcomments"></div>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: '1QhU05cQQQjIVDFiUFqOrjmB-gzGzoHsz',
+        appKey: '7I7EH0szenFgd1vjnxwFUPFp',
+        notify:  false ,
+        verify:  false ,
+        avatar:'mm',
+        placeholder: '说点什么吧...',
+        visitor:  false 
+    });
+  </script>
 
   
 

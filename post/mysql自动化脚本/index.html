@@ -49,7 +49,7 @@
 <meta itemprop="description" content="把mysql常用操作通过shell进行封装">
 <meta itemprop="datePublished" content="2020-02-11T14:15:06&#43;08:00" />
 <meta itemprop="dateModified" content="2020-02-11T14:15:06&#43;08:00" />
-<meta itemprop="wordCount" content="486">
+<meta itemprop="wordCount" content="392">
 
 
 
@@ -127,7 +127,7 @@
       <div class="post-meta">
         <span class="post-time"> 2020-02-11 </span>
         
-          <span class="more-meta"> 约 486 字 </span>
+          <span class="more-meta"> 约 392 字 </span>
           <span class="more-meta"> 预计阅读 1 分钟 </span>
         
       </div>
@@ -141,201 +141,101 @@
 </div>
     <div class="post-content">
       <p>把mysql常用操作通过shell进行封装</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span><span class="lnt">73
-</span><span class="lnt">74
-</span><span class="lnt">75
-</span><span class="lnt">76
-</span><span class="lnt">77
-</span><span class="lnt">78
-</span><span class="lnt">79
-</span><span class="lnt">80
-</span><span class="lnt">81
-</span><span class="lnt">82
-</span><span class="lnt">83
-</span><span class="lnt">84
-</span><span class="lnt">85
-</span><span class="lnt">86
-</span><span class="lnt">87
-</span><span class="lnt">88
-</span><span class="lnt">89
-</span><span class="lnt">90
-</span><span class="lnt">91
-</span><span class="lnt">92
-</span><span class="lnt">93
-</span><span class="lnt">94
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-js" data-lang="js"><span class="ch">#!/bin/ash
-</span><span class="ch"></span>
-
-<span class="nx">USER</span><span class="o">=</span><span class="s2">&#34;root&#34;</span>
-<span class="nx">NEWUSER</span><span class="o">=</span><span class="s2">&#34;xxx&#34;</span>
-<span class="nx">PASSWORD</span><span class="o">=</span><span class="s2">&#34;xxxx&#34;</span>
-<span class="nx">NEWPASSWORD</span><span class="o">=</span><span class="s2">&#34;xxxxxxxxxx&#34;</span>
-<span class="nx">DATE</span><span class="o">=</span><span class="sb">`</span><span class="sb">date +%Y/%m/%d</span><span class="sb">`</span>
-<span class="nx">OUTPUT</span><span class="o">=</span><span class="s2">&#34;/mnt/data/database/$DATE&#34;</span>
-<span class="nx">OPERATOR</span><span class="o">=</span><span class="s2">&#34;export&#34;</span>
-<span class="nx">FILES</span><span class="o">=</span><span class="s2">&#34;/tmp/database/*&#34;</span>
-<span class="nx">DATABASEPATH</span><span class="o">=</span><span class="s2">&#34;/mnt/db/mysql&#34;</span>
-<span class="nx">TMPPATH</span><span class="o">=</span><span class="s2">&#34;/mnt/db/tmp&#34;</span>
-<span class="nx">echo</span> <span class="nx">$OUTPUT</span>
-<span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="nx">d</span> <span class="s2">&#34;$OUTPUT&#34;</span> <span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="p">{</span>
-    <span class="nx">echo</span> <span class="s2">&#34;mkdir $OUTPUT&#34;</span>
-    <span class="nx">mkdir</span> <span class="o">-</span><span class="nx">p</span> <span class="nx">$OUTPUT</span>
-<span class="p">}</span>
-<span class="err">#</span><span class="nx">数据为初始化</span>
-<span class="nx">action_init</span><span class="p">(</span><span class="p">)</span><span class="p">{</span>
-    <span class="nx">flag</span><span class="o">=</span><span class="nx">$</span><span class="p">(</span><span class="nx">uci</span> <span class="nx">get</span> <span class="o">-</span><span class="nx">q</span> <span class="nx">system</span><span class="p">.</span><span class="err">@</span><span class="nx">general</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">.</span><span class="nx">databaseinit</span><span class="p">)</span>
-    <span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="nx">z</span> <span class="s2">&#34;$flag&#34;</span> <span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="k">return</span>
-	<span class="p">[</span>  <span class="o">-</span><span class="nx">z</span> <span class="s2">&#34;$flag&#34;</span> <span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="p">{</span>
-        <span class="nx">section</span><span class="o">=</span><span class="nx">$</span><span class="p">(</span><span class="nx">uci</span> <span class="nx">get</span> <span class="o">-</span><span class="nx">q</span> <span class="nx">system</span><span class="p">.</span><span class="err">@</span><span class="nx">general</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">)</span>
-		<span class="p">[</span> <span class="o">-</span><span class="nx">z</span> <span class="s2">&#34;$section&#34;</span> <span class="p">]</span> <span class="o">&amp;&amp;</span><span class="p">{</span>
-			<span class="nx">uci</span> <span class="nx">add</span> <span class="nx">system</span> <span class="nx">general</span>
-		<span class="p">}</span>
-		<span class="nx">uci</span> <span class="nx">set</span> <span class="nx">system</span><span class="p">.</span><span class="err">@</span><span class="nx">general</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="p">.</span><span class="nx">databaseinit</span><span class="o">=</span><span class="mi">1</span>
-        <span class="nx">uci</span> <span class="nx">commit</span> <span class="nx">system</span>
-	<span class="p">}</span>
-    <span class="p">[</span> <span class="o">-</span><span class="nx">d</span> <span class="s2">&#34;$DATABASEPATH&#34;</span> <span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">rm</span> <span class="o">-</span><span class="nx">rf</span> <span class="nx">$DATABASEPATH</span>
-    <span class="p">[</span> <span class="o">-</span><span class="nx">d</span> <span class="s2">&#34;$TMPPATH&#34;</span> <span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">rm</span> <span class="o">-</span><span class="nx">rf</span> <span class="nx">$TMPPATH</span>
-    <span class="nx">sed</span> <span class="o">-</span><span class="nx">i</span> <span class="s2">&#34;s,^datadir.*,datadir         = \&#34;$DATABASEPATH\&#34;,g&#34;</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">my</span><span class="p">.</span><span class="nx">cnf</span>
-    <span class="nx">sed</span> <span class="o">-</span><span class="nx">i</span> <span class="s1">&#39;s,^tmpdir.*,tmpdir          = &#34;/mnt/db/tmp&#34;,g&#39;</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">my</span><span class="p">.</span><span class="nx">cnf</span>
-    <span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="nx">d</span> <span class="s2">&#34;$DATABASEPATH&#34;</span> <span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">mkdir</span> <span class="o">-</span><span class="nx">p</span> <span class="nx">$DATABASEPATH</span>
-    <span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="nx">d</span> <span class="s2">&#34;$TMPPATH&#34;</span> <span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">mkdir</span> <span class="o">-</span><span class="nx">p</span> <span class="nx">$TMPPATH</span>
-    <span class="nx">mysql_install_db</span> <span class="o">--</span><span class="nx">force</span>
-    <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">init</span><span class="p">.</span><span class="nx">d</span><span class="o">/</span><span class="nx">mysqld</span> <span class="nx">start</span>
-    <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">init</span><span class="p">.</span><span class="nx">d</span><span class="o">/</span><span class="nx">mysqld</span> <span class="nx">enable</span>
-    <span class="nx">mysqladmin</span> <span class="o">-</span><span class="nx">u</span>  <span class="nx">$USER</span> <span class="nx">password</span> <span class="s2">&#34;$PASSWORD&#34;</span>
-    <span class="p">[</span> <span class="o">-</span><span class="nx">f</span> <span class="o">/</span><span class="nx">tmp</span><span class="o">/</span><span class="nx">adduser</span><span class="p">.</span><span class="nx">sql</span> <span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">rm</span> <span class="o">-</span><span class="nx">rf</span> <span class="o">/</span><span class="nx">tmp</span><span class="o">/</span><span class="nx">adduser</span><span class="p">.</span><span class="nx">sql</span>
-    <span class="nx">echo</span> <span class="s2">&#34;insert into mysql.user(Host,User,Password) values(\&#34;localhost\&#34;,\&#34;$NEWUSER\&#34;,password(\&#34;$NEWPASSWORD\&#34;));&#34;</span><span class="o">&gt;</span><span class="err">/</span><span class="err">t</span><span class="err">m</span><span class="err">p</span><span class="err">/</span><span class="err">a</span><span class="err">d</span><span class="err">d</span><span class="err">u</span><span class="err">s</span><span class="err">e</span><span class="err">r</span><span class="err">.</span><span class="err">s</span><span class="err">q</span><span class="err">l</span>
-    <span class="nx">echo</span> <span class="s2">&#34;GRANT ALL PRIVILEGES ON *.* TO \&#34;$NEWUSER\&#34;@\&#34;localhost\&#34; IDENTIFIED BY \&#34;$NEWPASSWORD\&#34;; &#34;</span>
-    <span class="nx">echo</span> <span class="s2">&#34;GRANT ALL PRIVILEGES ON *.* TO \&#34;$NEWUSER\&#34;@\&#34;localhost\&#34; IDENTIFIED BY \&#34;$NEWPASSWORD\&#34;; &#34;</span><span class="o">&gt;&gt;</span><span class="err">/</span><span class="err">t</span><span class="err">m</span><span class="err">p</span><span class="err">/</span><span class="err">a</span><span class="err">d</span><span class="err">d</span><span class="err">u</span><span class="err">s</span><span class="err">e</span><span class="err">r</span><span class="err">.</span><span class="err">s</span><span class="err">q</span><span class="err">l</span>
-    <span class="nx">echo</span> <span class="s2">&#34;flush privileges;&#34;</span><span class="o">&gt;&gt;</span><span class="err">/</span><span class="err">t</span><span class="err">m</span><span class="err">p</span><span class="err">/</span><span class="err">a</span><span class="err">d</span><span class="err">d</span><span class="err">u</span><span class="err">s</span><span class="err">e</span><span class="err">r</span><span class="err">.</span><span class="err">s</span><span class="err">q</span><span class="err">l</span>
-    <span class="nx">mysql</span> <span class="o">-</span><span class="nx">u</span> <span class="nx">$USER</span> <span class="o">-</span><span class="nx">p$PASSWORD</span> <span class="o">&lt;</span> <span class="err">/</span><span class="err">t</span><span class="err">m</span><span class="err">p</span><span class="err">/</span><span class="err">a</span><span class="err">d</span><span class="err">d</span><span class="err">u</span><span class="err">s</span><span class="err">e</span><span class="err">r</span><span class="err">.</span><span class="err">s</span><span class="err">q</span><span class="err">l</span>
-    <span class="nx">rm</span> <span class="o">-</span><span class="nx">rf</span> <span class="o">/</span><span class="nx">tmp</span><span class="o">/</span><span class="nx">adduser</span><span class="p">.</span><span class="nx">sql</span>
-<span class="p">}</span>
-<span class="err">#</span><span class="nx">数据库导出</span>
-<span class="nx">action_export</span><span class="p">(</span><span class="p">)</span><span class="p">{</span>
-    <span class="nx">databases</span><span class="o">=</span><span class="sb">`</span><span class="sb">mysql -u </span><span class="sb">$</span><span class="sb">USER -p</span><span class="sb">$</span><span class="sb">PASSWORD -e &#34;SHOW DATABASES;&#34; | tr -d &#34;| &#34; | grep -v Database</span><span class="sb">`</span>
-    <span class="nx">echo</span> <span class="s2">&#34;backup start&#34;</span>
-    <span class="k">for</span> <span class="nx">db</span> <span class="k">in</span> <span class="nx">$databases</span><span class="p">;</span> <span class="k">do</span>
-        <span class="k">if</span> <span class="p">[</span><span class="p">[</span> <span class="s2">&#34;$db&#34;</span> <span class="o">!=</span> <span class="s2">&#34;information_schema&#34;</span> <span class="p">]</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="p">[</span><span class="p">[</span> <span class="s2">&#34;$db&#34;</span> <span class="o">!=</span> <span class="s2">&#34;performance_schema&#34;</span> <span class="p">]</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="p">[</span><span class="p">[</span> <span class="s2">&#34;$db&#34;</span> <span class="o">!=</span> <span class="s2">&#34;mysql&#34;</span> <span class="p">]</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="p">[</span><span class="p">[</span> <span class="s2">&#34;$db&#34;</span> <span class="o">!=</span> <span class="nx">_</span><span class="o">*</span> <span class="p">]</span><span class="p">]</span> <span class="p">;</span> <span class="nx">then</span>
-            <span class="nx">echo</span> <span class="s2">&#34;Dumping database: $db&#34;</span>
-            <span class="p">[</span> <span class="o">-</span><span class="nx">f</span> <span class="nx">$OUTPUT</span><span class="o">/</span><span class="sb">`</span><span class="sb">date +%Y%m%d</span><span class="sb">`</span><span class="p">.</span><span class="nx">$db</span><span class="p">.</span><span class="nx">sql</span> <span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="p">{</span>
-                <span class="nx">echo</span> <span class="s2">&#34;rm sql file&#34;</span>
-                <span class="nx">rm</span> <span class="o">-</span><span class="nx">rf</span> <span class="nx">$OUTPUT</span><span class="o">/</span><span class="sb">`</span><span class="sb">date +%Y%m%d</span><span class="sb">`</span><span class="p">.</span><span class="nx">$db</span><span class="p">.</span><span class="nx">sql</span>
-            <span class="p">}</span>
-            <span class="nx">mysqldump</span> <span class="o">-</span><span class="nx">u</span> <span class="nx">$NEWUSER</span> <span class="o">-</span><span class="nx">p$NEWPASSWORD</span> <span class="o">--</span><span class="nx">databases</span> <span class="nx">$db</span> <span class="o">&gt;</span> <span class="nx">$OUTPUT</span><span class="o">/</span><span class="sb">`</span><span class="sb">date +%Y%m%d</span><span class="sb">`</span><span class="p">.</span><span class="nx">$db</span><span class="p">.</span><span class="nx">sql</span>
-            <span class="p">[</span> <span class="o">-</span><span class="nx">f</span> <span class="nx">$OUTPUT</span><span class="o">/</span><span class="sb">`</span><span class="sb">date +%Y%m%d</span><span class="sb">`</span><span class="p">.</span><span class="nx">$db</span><span class="p">.</span><span class="nx">sql</span><span class="p">.</span><span class="nx">gz</span> <span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="p">{</span>
-                <span class="nx">echo</span> <span class="s2">&#34;rm file&#34;</span>
-                <span class="nx">rm</span> <span class="o">-</span><span class="nx">rf</span> <span class="nx">$OUTPUT</span><span class="o">/</span><span class="sb">`</span><span class="sb">date +%Y%m%d</span><span class="sb">`</span><span class="p">.</span><span class="nx">$db</span><span class="p">.</span><span class="nx">sql</span><span class="p">.</span><span class="nx">gz</span>
-            <span class="p">}</span>
-            <span class="nx">gzip</span> <span class="nx">$OUTPUT</span><span class="o">/</span><span class="sb">`</span><span class="sb">date +%Y%m%d</span><span class="sb">`</span><span class="p">.</span><span class="nx">$db</span><span class="p">.</span><span class="nx">sql</span>
-            <span class="nx">rm</span> <span class="o">-</span><span class="nx">rf</span> <span class="nx">$OUTPUT</span><span class="o">/</span><span class="sb">`</span><span class="sb">date +%Y%m%d</span><span class="sb">`</span><span class="p">.</span><span class="nx">$db</span><span class="p">.</span><span class="nx">sql</span>
-        <span class="nx">fi</span>
-    <span class="nx">done</span>
-    <span class="nx">echo</span> <span class="s2">&#34;backup end&#34;</span>
-<span class="p">}</span>
-<span class="err">#</span><span class="nx">数据库导入</span>
-<span class="nx">action_import</span><span class="p">(</span><span class="p">)</span><span class="p">{</span>
-    <span class="k">for</span> <span class="nx">f</span> <span class="k">in</span> <span class="nx">$FILES</span>
-    <span class="k">do</span>
-        <span class="p">[</span> <span class="o">-</span><span class="nx">f</span> <span class="s2">&#34;$f&#34;</span> <span class="p">]</span> <span class="o">&amp;&amp;</span><span class="p">{</span>
-            <span class="nx">echo</span> <span class="s2">&#34;Processing $f file...&#34;</span>
-            <span class="nx">mysql</span> <span class="o">-</span><span class="nx">u</span> <span class="nx">$NEWUSER</span> <span class="o">-</span><span class="nx">p$NEWPASSWORD</span> <span class="o">&lt;</span> <span class="nx">$f</span>
-        <span class="p">}</span>
-    <span class="nx">done</span>
-<span class="p">}</span>
-<span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="nx">z</span> <span class="s2">&#34;$1&#34;</span> <span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">OPERATOR</span><span class="o">=</span><span class="nx">$1</span>
-<span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="nx">z</span> <span class="s2">&#34;$2&#34;</span> <span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">USER</span><span class="o">=</span><span class="nx">$2</span>
-<span class="p">[</span> <span class="o">!</span> <span class="o">-</span><span class="nx">z</span> <span class="s2">&#34;$3&#34;</span> <span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">PASSWORD</span><span class="o">=</span><span class="nx">$3</span>
+<pre><code class="language-js">#!/bin/ash
 
 
-<span class="k">if</span> <span class="p">[</span> <span class="s2">&#34;$OPERATOR&#34;</span> <span class="o">==</span> <span class="s2">&#34;export&#34;</span> <span class="p">]</span><span class="p">;</span> <span class="nx">then</span>
-    <span class="nx">action_export</span>
-<span class="nx">elif</span> <span class="p">[</span> <span class="s2">&#34;$OPERATOR&#34;</span> <span class="o">==</span> <span class="s2">&#34;import&#34;</span> <span class="p">]</span><span class="p">;</span> <span class="nx">then</span>
-    <span class="nx">action_import</span>
-<span class="nx">elif</span> <span class="p">[</span> <span class="s2">&#34;$OPERATOR&#34;</span> <span class="o">==</span> <span class="s2">&#34;init&#34;</span> <span class="p">]</span><span class="p">;</span> <span class="nx">then</span>
-    <span class="nx">action_init</span>
-<span class="nx">fi</span>
+USER=&quot;root&quot;
+NEWUSER=&quot;xxx&quot;
+PASSWORD=&quot;xxxx&quot;
+NEWPASSWORD=&quot;xxxxxxxxxx&quot;
+DATE=`date +%Y/%m/%d`
+OUTPUT=&quot;/mnt/data/database/$DATE&quot;
+OPERATOR=&quot;export&quot;
+FILES=&quot;/tmp/database/*&quot;
+DATABASEPATH=&quot;/mnt/db/mysql&quot;
+TMPPATH=&quot;/mnt/db/tmp&quot;
+echo $OUTPUT
+[ ! -d &quot;$OUTPUT&quot; ] &amp;&amp; {
+    echo &quot;mkdir $OUTPUT&quot;
+    mkdir -p $OUTPUT
+}
+#数据为初始化
+action_init(){
+    flag=$(uci get -q system.@general[0].databaseinit)
+    [ ! -z &quot;$flag&quot; ] &amp;&amp; return
+	[  -z &quot;$flag&quot; ] &amp;&amp; {
+        section=$(uci get -q system.@general[0])
+		[ -z &quot;$section&quot; ] &amp;&amp;{
+			uci add system general
+		}
+		uci set system.@general[0].databaseinit=1
+        uci commit system
+	}
+    [ -d &quot;$DATABASEPATH&quot; ] &amp;&amp; rm -rf $DATABASEPATH
+    [ -d &quot;$TMPPATH&quot; ] &amp;&amp; rm -rf $TMPPATH
+    sed -i &quot;s,^datadir.*,datadir         = \&quot;$DATABASEPATH\&quot;,g&quot; /etc/my.cnf
+    sed -i 's,^tmpdir.*,tmpdir          = &quot;/mnt/db/tmp&quot;,g' /etc/my.cnf
+    [ ! -d &quot;$DATABASEPATH&quot; ] &amp;&amp; mkdir -p $DATABASEPATH
+    [ ! -d &quot;$TMPPATH&quot; ] &amp;&amp; mkdir -p $TMPPATH
+    mysql_install_db --force
+    /etc/init.d/mysqld start
+    /etc/init.d/mysqld enable
+    mysqladmin -u  $USER password &quot;$PASSWORD&quot;
+    [ -f /tmp/adduser.sql ] &amp;&amp; rm -rf /tmp/adduser.sql
+    echo &quot;insert into mysql.user(Host,User,Password) values(\&quot;localhost\&quot;,\&quot;$NEWUSER\&quot;,password(\&quot;$NEWPASSWORD\&quot;));&quot;&gt;/tmp/adduser.sql
+    echo &quot;GRANT ALL PRIVILEGES ON *.* TO \&quot;$NEWUSER\&quot;@\&quot;localhost\&quot; IDENTIFIED BY \&quot;$NEWPASSWORD\&quot;; &quot;
+    echo &quot;GRANT ALL PRIVILEGES ON *.* TO \&quot;$NEWUSER\&quot;@\&quot;localhost\&quot; IDENTIFIED BY \&quot;$NEWPASSWORD\&quot;; &quot;&gt;&gt;/tmp/adduser.sql
+    echo &quot;flush privileges;&quot;&gt;&gt;/tmp/adduser.sql
+    mysql -u $USER -p$PASSWORD &lt; /tmp/adduser.sql
+    rm -rf /tmp/adduser.sql
+}
+#数据库导出
+action_export(){
+    databases=`mysql -u $USER -p$PASSWORD -e &quot;SHOW DATABASES;&quot; | tr -d &quot;| &quot; | grep -v Database`
+    echo &quot;backup start&quot;
+    for db in $databases; do
+        if [[ &quot;$db&quot; != &quot;information_schema&quot; ]] &amp;&amp; [[ &quot;$db&quot; != &quot;performance_schema&quot; ]] &amp;&amp; [[ &quot;$db&quot; != &quot;mysql&quot; ]] &amp;&amp; [[ &quot;$db&quot; != _* ]] ; then
+            echo &quot;Dumping database: $db&quot;
+            [ -f $OUTPUT/`date +%Y%m%d`.$db.sql ] &amp;&amp; {
+                echo &quot;rm sql file&quot;
+                rm -rf $OUTPUT/`date +%Y%m%d`.$db.sql
+            }
+            mysqldump -u $NEWUSER -p$NEWPASSWORD --databases $db &gt; $OUTPUT/`date +%Y%m%d`.$db.sql
+            [ -f $OUTPUT/`date +%Y%m%d`.$db.sql.gz ] &amp;&amp; {
+                echo &quot;rm file&quot;
+                rm -rf $OUTPUT/`date +%Y%m%d`.$db.sql.gz
+            }
+            gzip $OUTPUT/`date +%Y%m%d`.$db.sql
+            rm -rf $OUTPUT/`date +%Y%m%d`.$db.sql
+        fi
+    done
+    echo &quot;backup end&quot;
+}
+#数据库导入
+action_import(){
+    for f in $FILES
+    do
+        [ -f &quot;$f&quot; ] &amp;&amp;{
+            echo &quot;Processing $f file...&quot;
+            mysql -u $NEWUSER -p$NEWPASSWORD &lt; $f
+        }
+    done
+}
+[ ! -z &quot;$1&quot; ] &amp;&amp; OPERATOR=$1
+[ ! -z &quot;$2&quot; ] &amp;&amp; USER=$2
+[ ! -z &quot;$3&quot; ] &amp;&amp; PASSWORD=$3
 
 
-</code></pre></td></tr></table>
-</div>
-</div>
+if [ &quot;$OPERATOR&quot; == &quot;export&quot; ]; then
+    action_export
+elif [ &quot;$OPERATOR&quot; == &quot;import&quot; ]; then
+    action_import
+elif [ &quot;$OPERATOR&quot; == &quot;init&quot; ]; then
+    action_init
+fi
+
+
+</code></pre>
     </div>
 
     <div class="post-copyright">
@@ -375,6 +275,21 @@
         
 
   
+  <div id="vcomments"></div>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script type="text/javascript">
+    new Valine({
+        el: '#vcomments' ,
+        appId: '1QhU05cQQQjIVDFiUFqOrjmB-gzGzoHsz',
+        appKey: '7I7EH0szenFgd1vjnxwFUPFp',
+        notify:  false ,
+        verify:  false ,
+        avatar:'mm',
+        placeholder: '说点什么吧...',
+        visitor:  false 
+    });
+  </script>
 
   
 
