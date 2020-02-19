@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: http://blog.54wcs.com/sitemap.xml
+Sitemap: http://54wcs.com/sitemap.xml
