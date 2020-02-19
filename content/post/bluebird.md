@@ -9,9 +9,9 @@ tags: [ "前端","js"]
 ## 将传统方法封闭成promise方式
 
  Promise.promisify能够将原有的函数封装成promise的调用方式。
- 下面的是传统的异步调用方式。
 
-```js
+ 下面的是传统的异步调用方式。
+``` javascript
 import {readFile} from 'fs'
 readFile('file1.txt',function(err,data){
     if(err){

@@ -1,4 +1,4 @@
-baseURL = "http://blog.54wcs.com/"
+baseURL = "http://54wcs.com/"
 languageCode = "zh-cn"
 defaultContentLanguage = "zh-cn"                             # en / zh-cn / ... (This field determines which i18n file to use)
 title = "犀牛人家 - 感觉自己性格跟犀牛很像笨重而又却将倔强"
@@ -10,7 +10,7 @@ enableGitInfo = false # use git commit log to generate lastmod record # 可根�
 
 # Syntax highlighting by Chroma. NOTE: Don't enable `highlightInClient` and `chroma` at the same time!
 pygmentsOptions = "linenos=table"
-pygmentsCodefences = true
+pygmentsCodefences = false
 pygmentsUseClasses = true
 pygmentsCodefencesGuessSyntax = true
 
@@ -29,27 +29,27 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
   filename = "sitemap.xml"
 
 [[menu.main]]             # config your menu              # 配置目录
-  name = "Home"
+  name = "主页"
   weight = 10
   identifier = "home"
   url = "/"
 [[menu.main]]
-    name = "About"
+    name = "关于"
     weight = 50
     identifier = "关于"
     url = "/about/"
 [[menu.main]]
-  name = "Archives"
+  name = "归档"
   weight = 20
   identifier = "archives"
   url = "/post/"
 [[menu.main]]
-  name = "Tags"
+  name = "标签"
   weight = 30
   identifier = "tags"
   url = "/tags/"
 [[menu.main]]
-  name = "Categories"
+  name = "分类"
   weight = 40
   identifier = "categories"
   url = "/categories/"
@@ -78,7 +78,7 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
   dateFormatToUse = "2006-01-02"
 
   # show word count and read time ?                       # 是否显示字数统计与阅读时间
-  moreMeta = true
+  moreMeta = false
 
   # Syntax highlighting by highlight.js
   highlightInClient = true
@@ -155,9 +155,9 @@ copyright = ""            # default: author.name ↓        # 默认为下面配
   # You can get your appid and appkey from https://leancloud.cn
   # more info please open https://valine.js.org
   [params.valine]
-    enable = false
-    appId = '你的appId'
-    appKey = '你的appKey'
+    enable =true 
+    appId = '1QhU05cQQQjIVDFiUFqOrjmB-gzGzoHsz'
+    appKey = '7I7EH0szenFgd1vjnxwFUPFp'
     notify = false  # mail notifier , https://github.com/xCss/Valine/wiki
     verify = false # Verification code
     avatar = 'mm' 
